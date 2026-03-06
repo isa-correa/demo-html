@@ -5951,15 +5951,21 @@ function initPeer(){
   p.on('error',function(e){log('Error: '+e.type);setTimeout(initPeer,3000);});
 }
 function handleCard(idx){
-  // Navigate to section
-  sendNav(idx);
-  // Toggle subtab drawer
   var sub=document.getElementById('sub-'+idx);
   var btn=document.querySelector('.r-btn[data-card="'+idx+'"]');
-  var wasOpen = sub && sub.classList.contains('open');
+  var wasOpen=sub&&sub.classList.contains('open');
+  // Close all drawers
   document.querySelectorAll('.r-sub-nav').forEach(function(s){s.classList.remove('open');});
-  document.querySelectorAll('.r-btn').forEach(function(b){b.classList.remove('open');});
-  if(sub && !wasOpen){sub.classList.add('open');if(btn)btn.classList.add('open');}
+  document.querySelectorAll('.r-btn').forEach(function(b){b.classList.remove('open','active-card');});
+  // Mark active
+  if(btn)btn.classList.add('active-card');
+  // Open drawer if it wasn't open
+  if(sub&&!wasOpen){sub.classList.add('open');if(btn)btn.classList.add('open');}
+  // Send navigation
+  _curSection=idx;
+  if(btn){btn.classList.add('pressed');setTimeout(function(){btn.classList.remove('pressed');},280);}
+  if(_conn&&_conn.open){_conn.send({type:'navigate',section:idx});log('● Conectado','r-status ok');}
+  else log('Sin conexión');
 }
 function sendNav(idx){
   _curSection=idx;
