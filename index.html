@@ -6,6 +6,7 @@
 <title>Accenture · HTML como estándar de presentación</title>
 <link href="https://fonts.googleapis.com/css2?family=Graphik:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 <style>
 /* ── RESET ── */
 :root {
@@ -5765,18 +5766,17 @@ function initQR(){
   qrInited = true;
   const statusEl = document.getElementById('wow-qr-status');
   if(statusEl) statusEl.textContent = 'Iniciando…';
-  if(typeof Peer !== 'undefined'){ startQRHost(); return; }
-  const script = document.createElement('script');
-  script.src = 'https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js';
-  script.onload = () => startQRHost();
-  script.onerror = () => { if(statusEl) statusEl.textContent = 'Sin conexión — PeerJS no disponible'; };
-  document.head.appendChild(script);
+  startQRHost();
 }
 
 function startQRHost(){
   const statusEl = document.getElementById('wow-qr-status');
   try {
-    qrPeer = new Peer(undefined, { debug: 0 });
+    qrPeer = new Peer(undefined, {
+      debug: 0,
+      host: '0.peerjs.com', port: 443, path: '/', secure: true,
+      config: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] }
+    });
     qrPeer.on('open', (id) => {
       const remoteURL = location.origin + location.pathname + '#remote=' + id;
       drawQRCode(remoteURL);
@@ -5882,42 +5882,38 @@ function checkIfRemote(){
 
   const navScript = 'var _sid="' + sessionId + '";'
     + 'var _labels=' + JSON.stringify(labels) + ';'
-    + 'var _peer=null,_conn=null;'
-    + 'function initPeer(){'
+    + 'var _conn=null;'
+    + 'function log(msg,ok){'
     + '  var tx=document.getElementById("r-tx"),s=document.getElementById("r-st");'
-    + '  tx.textContent="Conectando…";'
-    + '  var scr=document.createElement("script");'
-    + '  scr.src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js";'
-    + '  scr.onload=function(){'
-    + '    _peer=new Peer(undefined,{debug:0});'
-    + '    _peer.on("open",function(){'
-    + '      _conn=_peer.connect(_sid,{reliable:true});'
-    + '      _conn.on("open",function(){'
-    + '        s.className="r-status sent";tx.textContent="Listo para controlar";'
-    + '        setTimeout(function(){s.className="r-status";},1500);'
-    + '      });'
-    + '      _conn.on("error",function(e){tx.textContent="Error conn";});'
-    + '      _conn.on("close",function(){tx.textContent="Desconectado";_conn=null;});'
-    + '    });'
-    + '    _peer.on("error",function(e){tx.textContent="Error: "+e.type;});'
-    + '  };'
-    + '  document.head.appendChild(scr);'
+    + '  if(!tx)return; tx.textContent=msg;'
+    + '  s.className=ok?"r-status sent":"r-status";'
+    + '}'
+    + 'function initPeer(){'
+    + '  log("Conectando al servidor…");'
+    + '  var p=new Peer({debug:2,host:"0.peerjs.com",port:443,path:"/",secure:true,'
+    + '    config:{iceServers:[{urls:"stun:stun.l.google.com:19302"}]}});'
+    + '  p.on("open",function(myId){'
+    + '    log("Enlazando con portátil…");'
+    + '    _conn=p.connect(_sid,{reliable:true,serialization:"json"});'
+    + '    _conn.on("open",function(){log("✓ Listo para controlar",true);setTimeout(function(){log("Listo para controlar");},2000);});'
+    + '    _conn.on("error",function(e){log("Error: "+e);});'
+    + '    _conn.on("close",function(){log("Desconectado — recarga");_conn=null;});'
+    + '  });'
+    + '  p.on("error",function(e){log("Error servidor: "+e.type);'
+    + '    setTimeout(initPeer,3000);'
+    + '  });'
     + '}'
     + 'function sendNav(idx){'
     + '  var btn=document.querySelector(".r-btn[data-card=\\""+idx+"\\"]");'
     + '  if(btn){btn.classList.add("pressed");setTimeout(function(){btn.classList.remove("pressed");},300);}'
     + '  document.querySelectorAll(".r-btn").forEach(function(b){b.classList.remove("active-card");});'
     + '  if(btn)btn.classList.add("active-card");'
-    + '  var s=document.getElementById("r-st"),tx=document.getElementById("r-tx");'
-    + '  if(!_conn||!_conn.open){'
-    + '    tx.textContent="Sin conexión — recarga la página";return;'
-    + '  }'
-    + '  try{_conn.send({type:"navigate",section:idx});}catch(e){tx.textContent="Error al enviar";return;}'
-    + '  s.className="r-status sent";'
-    + '  tx.textContent="\u2713 "+(_labels[idx]||"Sección "+(idx+1));'
-    + '  setTimeout(function(){s.className="r-status";tx.textContent="Listo para controlar";},1800);'
+    + '  if(!_conn||!_conn.open){log("Sin conexión — espera o recarga");return;}'
+    + '  _conn.send({type:"navigate",section:idx});'
+    + '  log("\u2713 "+(_labels[idx]||"Sección "+(idx+1)),true);'
+    + '  setTimeout(function(){log("Listo para controlar");},1800);'
     + '}'
-    + 'window.addEventListener("load",function(){initPeer();});';
+    + 'initPeer();';
 
   document.open();
   document.write('<!DOCTYPE html><html lang="es"><head>'
@@ -5925,6 +5921,7 @@ function checkIfRemote(){
     + '<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">'
     + '<title>Accenture \u00b7 Control remoto</title>'
     + '<style>' + remoteCSS + '</style>'
+    + '<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"><\/script>'
     + '</head><body>'
     + '<canvas id="bg"></canvas>'
     + '<div id="remote-ui">'
@@ -5936,7 +5933,7 @@ function checkIfRemote(){
     + '<nav class="r-nav">' + btns + '</nav>'
     + '<div class="r-status" id="r-st">'
     + '<span class="r-dot"></span>'
-    + '<span id="r-tx">Toca una sección para navegar</span>'
+    + '<span id="r-tx">Cargando…</span>'
     + '</div>'
     + '</div>'
     + '<script>' + bgScript + navScript + '<\/script>'
