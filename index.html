@@ -94,7 +94,7 @@ a { text-decoration:none; color:inherit; }
 .sb-nav { flex:1; overflow-y:auto; padding:10px 0; }
 .sb-item {
   display:flex; align-items:center; gap:10px;
-  padding:12px 22px; font-size:14px; color:var(--txt2);
+  padding:10px 22px; font-size:14px; color:var(--txt2);
   border-left:3px solid transparent; transition:all .2s; user-select:none;
 }
 .sb-item:hover { color:var(--txt); background:rgba(161,0,255,.05); }
@@ -1495,43 +1495,6 @@ a { text-decoration:none; color:inherit; }
 .wow-panel { display:none; flex:1; min-height:0; flex-direction:column; }
 .wow-panel.active { display:flex; }
 
-/* ── AI tab ── */
-.wow-ai-wrap { display:flex; flex-direction:column; gap:20px; flex:1; min-height:0; }
-.wow-intro { font-size:12px; color:var(--txt2); line-height:1.6; flex-shrink:0; }
-.wow-fields { display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap; flex-shrink:0; }
-.wow-field-group { display:flex; flex-direction:column; gap:6px; flex:1; min-width:180px; }
-.wow-field-lbl { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--txt3); }
-.wow-input {
-  background:var(--surf); border:1px solid var(--bdr); color:var(--txt);
-  padding:10px 14px; font-size:13px; font-family:var(--font); outline:none;
-  transition:border-color .2s;
-}
-.wow-input:focus { border-color:var(--p); }
-.wow-gen-btn {
-  display:flex; align-items:center; gap:8px; padding:10px 22px;
-  background:var(--p); color:#fff; border:none; font-size:13px;
-  font-family:var(--font); font-weight:500; cursor:none !important;
-  transition:background .2s; flex-shrink:0; white-space:nowrap;
-}
-.wow-gen-btn:hover { background:var(--pm); }
-.wow-gen-btn:disabled { background:var(--g7); cursor:not-allowed !important; }
-
-.wow-output-wrap { flex:1; min-height:0; display:flex; flex-direction:column; gap:8px; }
-.wow-output-lbl { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--txt3); flex-shrink:0; }
-.wow-output {
-  flex:1; min-height:0; overflow-y:auto;
-  background:var(--surf); border:1px solid var(--bdr);
-  border-left:3px solid var(--p);
-  padding:18px 20px; font-size:14px; line-height:1.8; color:var(--txt);
-  white-space:pre-wrap;
-}
-.wow-output .wow-cursor {
-  display:inline-block; width:2px; height:1em;
-  background:var(--p); margin-left:2px; vertical-align:text-bottom;
-  animation:blink .7s step-end infinite;
-}
-@keyframes blink { 50% { opacity:0; } }
-
 /* ── Sound tab ── */
 .wow-sound-wrap { display:flex; flex-direction:column; gap:20px; flex:1; min-height:0; }
 .wow-canvas-wrap {
@@ -2762,40 +2725,15 @@ a { text-decoration:none; color:inherit; }
         <div class="card-title" id="ti5">IA en vivo · HTML en su límite</div>
 
         <div class="wow-tabs">
-          <button class="wow-tab active" onclick="wowTab(0,this)">✦ <span class="wow-tab-lbl" id="wtl0">IA Generativa</span></button>
-          <button class="wow-tab" onclick="wowTab(1,this)">◉ <span class="wow-tab-lbl" id="wtl1">Sonido</span></button>
-          <button class="wow-tab" onclick="wowTab(2,this)">⬡ <span class="wow-tab-lbl" id="wtl2">Partículas</span></button>
-          <button class="wow-tab" onclick="wowTab(3,this)">⊞ <span class="wow-tab-lbl" id="wtl3">Control remoto</span></button>
+          <button class="wow-tab active" onclick="wowTab(0,this)">◉ <span class="wow-tab-lbl" id="wtl0">Sonido</span></button>
+          <button class="wow-tab" onclick="wowTab(1,this)">⬡ <span class="wow-tab-lbl" id="wtl1">Partículas</span></button>
+          <button class="wow-tab" onclick="wowTab(2,this)">⊞ <span class="wow-tab-lbl" id="wtl2">Control remoto</span></button>
         </div>
 
         <div class="wow-panels">
 
-          <!-- TAB 0: IA GENERATIVA -->
+          <!-- TAB 0: SONIDO -->
           <div class="wow-panel active" id="wpp0">
-            <div class="wow-ai-wrap">
-              <p class="wow-intro" id="wow-ai-intro">Escribe el nombre y sector del cliente. La IA genera en tiempo real la apertura personalizada de su presentación.</p>
-              <div class="wow-fields">
-                <div class="wow-field-group">
-                  <label class="wow-field-lbl" id="wfl-client">Cliente</label>
-                  <input class="wow-input" id="wow-client" type="text" placeholder="Ej: Banco Santander" autocomplete="off">
-                </div>
-                <div class="wow-field-group">
-                  <label class="wow-field-lbl" id="wfl-sector">Sector</label>
-                  <input class="wow-input" id="wow-sector" type="text" placeholder="Ej: Banca y servicios financieros" autocomplete="off">
-                </div>
-                <button class="wow-gen-btn" id="wow-gen-btn" onclick="generateAI()">
-                  <span>✦</span> <span id="wow-btn-lbl">Generar con IA</span>
-                </button>
-              </div>
-              <div class="wow-output-wrap" id="wow-output-wrap" style="display:none">
-                <div class="wow-output-lbl" id="wow-output-lbl">Apertura generada</div>
-                <div class="wow-output" id="wow-output"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- TAB 1: SONIDO -->
-          <div class="wow-panel" id="wpp1">
             <div class="wow-sound-wrap">
               <p class="wow-intro" id="wow-sound-intro">La forma reacciona al sonido de la sala en tiempo real. Habla, aplaude, o pon música.</p>
               <div class="wow-canvas-wrap">
@@ -2814,8 +2752,8 @@ a { text-decoration:none; color:inherit; }
             </div>
           </div>
 
-          <!-- TAB 2: PARTÍCULAS -->
-          <div class="wow-panel" id="wpp2">
+          <!-- TAB 1: PARTÍCULAS -->
+          <div class="wow-panel" id="wpp1">
             <div class="wow-particles-wrap">
               <p class="wow-intro" id="wow-particles-intro">Escribe cualquier texto. Las partículas se reorganizan para formarlo.</p>
               <div class="wow-pt-controls">
@@ -2833,8 +2771,8 @@ a { text-decoration:none; color:inherit; }
             </div>
           </div>
 
-          <!-- TAB 3: CONTROL REMOTO QR -->
-          <div class="wow-panel" id="wpp3">
+          <!-- TAB 2: CONTROL REMOTO QR -->
+          <div class="wow-panel" id="wpp2">
             <div class="wow-qr-wrap">
               <p class="wow-intro" id="wow-qr-intro">Escanea el QR con el móvil. Controla las pestañas de esta card desde tu teléfono.</p>
               <div class="wow-qr-layout">
@@ -2848,8 +2786,8 @@ a { text-decoration:none; color:inherit; }
                   <div class="wow-qr-label" id="wow-qr-label">Pestaña activa</div>
                   <div class="wow-qr-tabs-preview" id="wow-qr-tabs-preview">
                     <div class="wow-qr-tab-pill active" data-tab="0">✦ IA</div>
-                    <div class="wow-qr-tab-pill" data-tab="1">◉ Sonido</div>
-                    <div class="wow-qr-tab-pill" data-tab="2">⬡ Partículas</div>
+                    <div class="wow-qr-tab-pill" data-tab="0">◉ Sonido</div>
+                    <div class="wow-qr-tab-pill" data-tab="1">⬡ Partículas</div>
                   </div>
                   <div class="wow-qr-hint" id="wow-qr-hint">El móvil navega entre las pestañas en tiempo real.</div>
                 </div>
@@ -3060,10 +2998,7 @@ const i18n = {
     },
     c5:{
       ey:'06 · Wow', ti:'IA en vivo · HTML en su límite', sbNav:'Wow',
-      tab0:'IA Generativa', tab1:'Sonido', tab2:'Partículas', tab3:'Control remoto',
-      aiIntro:'Escribe el nombre y sector del cliente. La IA genera en tiempo real la apertura personalizada de su presentación.',
-      fldClient:'Cliente', fldSector:'Sector',
-      btnLbl:'Generar con IA', outputLbl:'Apertura generada',
+      tab0:'Sonido', tab1:'Partículas', tab2:'Control remoto',
       soundIntro:'La forma reacciona al sonido de la sala en tiempo real. Habla, aplaude, o pon música.',
       meterLbl:'Nivel', micOn:'Activar micrófono', micOff:'Desactivar micrófono',
       micIdle:'Micrófono inactivo',
@@ -3216,10 +3151,7 @@ const i18n = {
     },
     c5:{
       ey:'06 · Wow', ti:'Live AI · HTML at its limit', sbNav:'Wow',
-      tab0:'Generative AI', tab1:'Sound', tab2:'Particles', tab3:'Remote control',
-      aiIntro:'Enter the client name and sector. The AI generates a personalised opening for their presentation in real time.',
-      fldClient:'Client', fldSector:'Sector',
-      btnLbl:'Generate with AI', outputLbl:'Generated opening',
+      tab0:'Sound', tab1:'Particles', tab2:'Remote control',
       soundIntro:'The shape reacts to the room\'s sound in real time. Talk, clap, or play music.',
       meterLbl:'Level', micOn:'Enable microphone', micOff:'Disable microphone',
       micIdle:'Microphone inactive',
@@ -3372,10 +3304,7 @@ const i18n = {
     },
     c5:{
       ey:'06 · Wow', ti:'Live-KI · HTML an seinem Limit', sbNav:'Wow',
-      tab0:'Generative KI', tab1:'Klang', tab2:'Partikel', tab3:'Fernsteuerung',
-      aiIntro:'Geben Sie Kundenname und Branche ein. Die KI generiert in Echtzeit die personalisierte Eröffnung ihrer Präsentation.',
-      fldClient:'Kunde', fldSector:'Branche',
-      btnLbl:'Mit KI generieren', outputLbl:'Generierte Eröffnung',
+      tab0:'Klang', tab1:'Partikel', tab2:'Fernsteuerung',
       soundIntro:'Die Form reagiert in Echtzeit auf den Raumklang. Sprechen, klatschen oder Musik abspielen.',
       meterLbl:'Pegel', micOn:'Mikrofon aktivieren', micOff:'Mikrofon deaktivieren',
       micIdle:'Mikrofon inaktiv',
@@ -5556,261 +5485,11 @@ function doRipple(e,btn){
 /* ══════════════════════════════════════════════════
    CARD 6 — WOW
 ══════════════════════════════════════════════════ */
-let card6Inited = false;
-let micStream = null, micActive = false;
-let audioCtx = null, analyser = null, soundRAF = null;
-let wowActiveTab = 0;
-
-function wowTab(idx, btn){
-  document.querySelectorAll('.wow-tab').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.wow-panel').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('wpp'+idx).classList.add('active');
-  wowActiveTab = idx;
-  if(idx === 1) initSoundCanvas();
-  if(idx === 2) initParticleCanvas();
-  if(idx === 3) initQR();
-  // Sync QR tab pills
-  document.querySelectorAll('.wow-qr-tab-pill').forEach(p => p.classList.toggle('active', +p.dataset.tab === idx));
-}
-
-/* ── AI GENERATIVA ── */
-async function generateAI(){
-  const client = document.getElementById('wow-client').value.trim();
-  const sector = document.getElementById('wow-sector').value.trim();
-  if(!client || !sector){ 
-    document.getElementById('wow-client').focus(); 
-    return; 
-  }
-
-  const btn = document.getElementById('wow-gen-btn');
-  const outputWrap = document.getElementById('wow-output-wrap');
-  const output = document.getElementById('wow-output');
-
-  btn.disabled = true;
-  btn.innerHTML = '<span>⟳</span> <span>Generando…</span>';
-  outputWrap.style.display = 'flex';
-  output.innerHTML = '<span class="wow-cursor"></span>';
-
-  const lang_map = { es: 'español', en: 'English', de: 'Deutsch' };
-  const currentLang = lang_map[lang] || 'español';
-
-  const prompt = `Eres redactor creativo de Accenture España. Escribe la apertura de una presentación HTML interactiva para el cliente "${client}" del sector "${sector}". 
-
-Requisitos:
-- 3 párrafos cortos (máximo 4 líneas cada uno)
-- Tono: profesional, directo, con confianza. Sin clichés.
-- Primer párrafo: contexto del reto del cliente en su sector
-- Segundo párrafo: qué propone Accenture Creative Studio
-- Tercer párrafo: por qué una presentación HTML marca la diferencia aquí
-- Idioma: ${currentLang}
-- Sin emojis, sin asteriscos, sin títulos. Solo los tres párrafos.`;
-
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        stream: true,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    output.innerHTML = '';
-    const cursor = document.createElement('span');
-    cursor.className = 'wow-cursor';
-    output.appendChild(cursor);
-
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let buffer = '';
-
-    while(true){
-      const { done, value } = await reader.read();
-      if(done) break;
-      buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split('\n');
-      buffer = lines.pop();
-      for(const line of lines){
-        if(!line.startsWith('data: ')) continue;
-        const data = line.slice(6);
-        if(data === '[DONE]') continue;
-        try {
-          const parsed = JSON.parse(data);
-          if(parsed.type === 'content_block_delta' && parsed.delta?.text){
-            output.insertBefore(document.createTextNode(parsed.delta.text), cursor);
-            output.scrollTop = output.scrollHeight;
-          }
-        } catch(e){}
-      }
-    }
-    cursor.remove();
-  } catch(err){
-    output.textContent = 'Error al conectar con la API. Comprueba la conexión.';
-  }
-
-  btn.disabled = false;
-  btn.innerHTML = '<span>✦</span> <span id="wow-btn-lbl">Generar con IA</span>';
-  // re-apply translation to button label
-  const L = i18n[lang];
-  if(L && L.c5 && L.c5.btnLbl) document.getElementById('wow-btn-lbl').textContent = L.c5.btnLbl;
-}
-
-/* ── SONIDO ── */
-function initSoundCanvas(){
-  const canvas = document.getElementById('wow-sound-canvas');
-  const wrap = canvas.parentElement;
-  canvas.width = wrap.clientWidth || 400;
-  canvas.height = wrap.clientHeight || 220;
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  // draw idle sphere
-  drawSphere(ctx, canvas.width/2, canvas.height/2, 0);
-}
-
-function drawSphere(ctx, cx, cy, level){
-  const W = ctx.canvas.width, H = ctx.canvas.height;
-  ctx.clearRect(0, 0, W, H);
-
-  const baseR = Math.min(W, H) * 0.22;
-  const r = baseR + level * baseR * 1.4;
-  const segments = 48;
-
-  // Outer glow
-  if(level > 0.05){
-    const glow = ctx.createRadialGradient(cx, cy, r*0.6, cx, cy, r*2.2);
-    glow.addColorStop(0, `rgba(161,0,255,${level * 0.3})`);
-    glow.addColorStop(1, 'rgba(161,0,255,0)');
-    ctx.beginPath();
-    ctx.arc(cx, cy, r * 2.2, 0, Math.PI * 2);
-    ctx.fillStyle = glow;
-    ctx.fill();
-  }
-
-  // Distorted sphere
-  ctx.beginPath();
-  for(let i = 0; i <= segments; i++){
-    const angle = (i / segments) * Math.PI * 2;
-    const noise = level * baseR * 0.5 * (Math.sin(angle * 4 + Date.now()*0.003) * 0.5 + Math.sin(angle * 7 + Date.now()*0.005) * 0.5);
-    const sr = r + noise;
-    const x = cx + Math.cos(angle) * sr;
-    const y = cy + Math.sin(angle) * sr * 0.85;
-    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-  }
-  ctx.closePath();
-
-  const grad = ctx.createRadialGradient(cx - r*0.3, cy - r*0.3, r*0.1, cx, cy, r*1.1);
-  grad.addColorStop(0, `rgba(200,100,255,${0.7 + level*0.3})`);
-  grad.addColorStop(0.4, `rgba(161,0,255,${0.6 + level*0.3})`);
-  grad.addColorStop(1, `rgba(80,0,140,${0.4 + level*0.2})`);
-  ctx.fillStyle = grad;
-  ctx.fill();
-
-  // Wireframe
-  ctx.strokeStyle = `rgba(220,160,255,${0.15 + level*0.3})`;
-  ctx.lineWidth = 0.7;
-  ctx.stroke();
-
-  // Floating particles when loud
-  if(level > 0.3){
-    const nParticles = Math.floor(level * 18);
-    for(let i = 0; i < nParticles; i++){
-      const angle = (i / nParticles) * Math.PI * 2 + Date.now() * 0.001 * (i%3===0?1:-1);
-      const dist = r * (1.2 + Math.random() * 0.8 * level);
-      const px = cx + Math.cos(angle) * dist;
-      const py = cy + Math.sin(angle) * dist * 0.85;
-      const pr = 1.5 + Math.random() * 3 * level;
-      ctx.beginPath();
-      ctx.arc(px, py, pr, 0, Math.PI*2);
-      ctx.fillStyle = `rgba(220,160,255,${0.5 + Math.random()*0.5})`;
-      ctx.fill();
-    }
-  }
-}
-
-async function toggleMic(){
-  if(micActive){
-    stopMic();
-  } else {
-    await startMic();
-  }
-}
-
-async function startMic(){
-  try {
-    micStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 256;
-    analyser.smoothingTimeConstant = 0.75;
-    const source = audioCtx.createMediaStreamSource(micStream);
-    source.connect(analyser);
-
-    micActive = true;
-    document.getElementById('wow-sound-btn').classList.add('active');
-    document.getElementById('wow-mic-icon').textContent = '◼';
-    const L = i18n[lang];
-    document.getElementById('wow-mic-lbl').textContent = (L && L.c5) ? L.c5.micOff : 'Desactivar micrófono';
-    document.getElementById('wow-canvas-label').style.display = 'none';
-
-    soundLoop();
-  } catch(err){
-    document.getElementById('wow-canvas-label').textContent = 'Permiso de micrófono denegado';
-  }
-}
-
-function stopMic(){
-  if(micStream) micStream.getTracks().forEach(t => t.stop());
-  if(audioCtx) audioCtx.close();
-  if(soundRAF) cancelAnimationFrame(soundRAF);
-  micActive = false;
-  micStream = null; audioCtx = null; analyser = null;
-
-  document.getElementById('wow-sound-btn').classList.remove('active');
-  document.getElementById('wow-mic-icon').textContent = '◉';
-  const L = i18n[lang];
-  document.getElementById('wow-mic-lbl').textContent = (L && L.c5) ? L.c5.micOn : 'Activar micrófono';
-  document.getElementById('wow-canvas-label').style.display = '';
-  document.getElementById('wow-meter-fill').style.width = '0%';
-
-  // Redraw idle
-  const canvas = document.getElementById('wow-sound-canvas');
-  const ctx = canvas.getContext('2d');
-  drawSphere(ctx, canvas.width/2, canvas.height/2, 0);
-}
-
-function soundLoop(){
-  if(!analyser) return;
-  const data = new Uint8Array(analyser.frequencyBinCount);
-  analyser.getByteFrequencyData(data);
-  const avg = data.reduce((a,b) => a+b, 0) / data.length;
-  const level = Math.min(avg / 90, 1);
-
-  document.getElementById('wow-meter-fill').style.width = (level * 100) + '%';
-
-  const canvas = document.getElementById('wow-sound-canvas');
-  const ctx = canvas.getContext('2d');
-  // Resize if needed
-  const wrap = canvas.parentElement;
-  if(canvas.width !== wrap.clientWidth) canvas.width = wrap.clientWidth;
-  if(canvas.height !== wrap.clientHeight) canvas.height = wrap.clientHeight;
-
-  drawSphere(ctx, canvas.width/2, canvas.height/2, level);
-  soundRAF = requestAnimationFrame(soundLoop);
-}
-
-/* ── i18n card 6 ── */
 function applyCard6(L){
   const c = L.c5 || i18n.es.c5;
   const set = (id, val) => { const el = document.getElementById(id); if(el && val != null) el.textContent = val; };
   set('ey5', c.ey); set('ti5', c.ti); set('sb-wow', c.sbNav);
-  set('wtl0', c.tab0); set('wtl1', c.tab1); set('wtl2', c.tab2); set('wtl3', c.tab3);
-  set('wow-ai-intro', c.aiIntro);
-  set('wfl-client', c.fldClient); set('wfl-sector', c.fldSector);
-  set('wow-btn-lbl', c.btnLbl);
-  set('wow-output-lbl', c.outputLbl);
+  set('wtl0', c.tab0); set('wtl1', c.tab1); set('wtl2', c.tab2);
   set('wow-sound-intro', c.soundIntro);
   set('wow-meter-lbl', c.meterLbl);
   set('wow-particles-intro', c.ptIntro);
@@ -5822,6 +5501,27 @@ function applyCard6(L){
     set('wow-canvas-label', c.micIdle);
   }
 }
+
+let card6Inited = false;
+let micStream = null, micActive = false;
+let audioCtx = null, analyser = null, soundRAF = null;
+let wowActiveTab = 0;
+
+function wowTab(idx, btn){
+  document.querySelectorAll('.wow-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.wow-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('wpp'+idx).classList.add('active');
+  wowActiveTab = idx;
+  if(idx === 0) initSoundCanvas();
+  if(idx === 1) initParticleCanvas();
+  if(idx === 2) initQR();
+  // Sync QR tab pills
+  document.querySelectorAll('.wow-qr-tab-pill').forEach(p => p.classList.toggle('active', +p.dataset.tab === idx));
+}
+
+/* ── AI GENERATIVA ── */
+
 
 /* ══════════════════════════════════════════════════
    PARTÍCULAS QUE FORMAN TEXTO
@@ -6003,37 +5703,115 @@ function checkIfRemote(){
   const hash = location.hash;
   if(!hash.startsWith('#remote=')) return;
   const sessionId = hash.slice(8);
-  document.body.innerHTML = '';
-  document.body.style.cssText = 'margin:0;padding:0;background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:Arial,sans-serif;';
 
-  const ui = document.createElement('div');
-  ui.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:20px;padding:30px;width:100%;max-width:360px;';
-  ui.innerHTML = `
-    <div style="font-size:11px;letter-spacing:3px;color:#555;text-transform:uppercase">Accenture · Creative Studio</div>
-    <div style="font-size:13px;color:#999;margin-bottom:8px">Control remoto</div>
-    ${['✦ IA Generativa','◉ Sonido','⬡ Partículas'].map((lbl,i) => `
-      <button onclick="sendNav(${i})" style="width:100%;padding:18px 24px;background:transparent;border:1px solid #2E2E2E;color:#999;font-size:16px;font-family:Arial;cursor:pointer;transition:all .2s;border-radius:0;letter-spacing:.5px;"
-        onmouseover="this.style.borderColor='#A100FF';this.style.color='#A100FF'"
-        onmouseout="this.style.borderColor='#2E2E2E';this.style.color='#999'">
-        ${lbl}
-      </button>`).join('')}
-    <div id="remote-status" style="font-size:11px;color:#555;margin-top:8px">Toca una pestaña para navegar</div>
-  `;
-  document.body.appendChild(ui);
+  const remoteCSS = [
+    '*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}',
+    'html,body{width:100%;height:100%;overflow:hidden;font-family:Arial,sans-serif;}',
+    '#bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;}',
+    '#remote-ui{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:100vh;min-height:100dvh;padding:48px 28px 40px;}',
+    '.r-header{display:flex;flex-direction:column;align-items:center;gap:10px;}',
+    '.r-logo{font-size:28px;font-weight:300;letter-spacing:-.5px;color:#fff;}',
+    '.r-logo em{font-style:italic;font-weight:700;color:#A100FF;}',
+    '.r-sub{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#555;}',
+    '.r-divider{width:32px;height:1px;background:linear-gradient(90deg,transparent,#A100FF,transparent);margin-top:6px;}',
+    '.r-nav{display:flex;flex-direction:column;gap:14px;width:100%;max-width:320px;}',
+    '.r-btn{display:flex;align-items:center;gap:14px;padding:20px 22px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.5);font-size:15px;letter-spacing:.3px;width:100%;text-align:left;transition:all .25s;-webkit-tap-highlight-color:transparent;cursor:pointer;}',
+    '.r-btn:active,.r-btn.pressed{background:rgba(161,0,255,.15);border-color:#A100FF;color:#fff;transform:scale(.97);}',
+    '.r-btn.active-tab{background:rgba(161,0,255,.12);border-color:rgba(161,0,255,.6);color:#fff;}',
+    '.r-btn-icon{font-size:18px;width:24px;text-align:center;flex-shrink:0;}',
+    '.r-btn-label{display:flex;flex-direction:column;gap:2px;}',
+    '.r-btn-title{font-size:15px;font-weight:500;}',
+    '.r-btn-desc{font-size:11px;color:#555;font-weight:400;}',
+    '.r-btn.active-tab .r-btn-desc{color:#A100FF;}',
+    '.r-status{display:flex;align-items:center;gap:8px;font-size:11px;color:#444;letter-spacing:.5px;transition:color .3s;}',
+    '.r-status-dot{width:6px;height:6px;border-radius:50%;background:#333;transition:background .3s;animation:pulse-idle 2s ease-in-out infinite;}',
+    '.r-status.sent .r-status-dot{background:#A100FF;animation:pulse-sent .4s ease-out;}',
+    '.r-status.sent{color:#A100FF;}',
+    '@keyframes pulse-idle{0%,100%{opacity:.4}50%{opacity:1}}',
+    '@keyframes pulse-sent{0%{transform:scale(1)}50%{transform:scale(2);opacity:.5}100%{transform:scale(1)}}'
+  ].join('\n');
 
-  window.sendNav = function(tabIdx){
-    try {
-      const ch = new BroadcastChannel('wow-remote-' + sessionId);
-      ch.postMessage({ type: 'navigate', tab: tabIdx });
-      ch.close();
-      document.getElementById('remote-status').textContent = '✓ Navegando a pestaña ' + (tabIdx+1);
-      document.getElementById('remote-status').style.color = '#A100FF';
-      setTimeout(() => {
-        document.getElementById('remote-status').textContent = 'Toca una pestaña para navegar';
-        document.getElementById('remote-status').style.color = '#555';
-      }, 1500);
-    } catch(e){}
-  };
+  const tabs = [
+    ['◉','Sonido','Esfera que reacciona al audio'],
+    ['⬡','Partículas','Texto formado por partículas'],
+    ['⊞','Control remoto','Esta pantalla']
+  ];
+
+  const btns = tabs.map(function(t, i){
+    return '<button class="r-btn' + (i===0?' active-tab':'') + '" data-tab="' + i + '" onclick="sendNav(' + i + ')">'
+      + '<span class="r-btn-icon">' + t[0] + '</span>'
+      + '<span class="r-btn-label">'
+      + '<span class="r-btn-title">' + t[1] + '</span>'
+      + '<span class="r-btn-desc">' + t[2] + '</span>'
+      + '</span></button>';
+  }).join('');
+
+  const bgScript = '(function(){'
+    + 'var canvas=document.getElementById("bg-canvas");'
+    + 'var ctx=canvas.getContext("2d");'
+    + 'var W,H,t=0;'
+    + 'function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}'
+    + 'resize();window.addEventListener("resize",resize);'
+    + 'var blobs=['
+    + '{x:.2,y:.3,r:.55,color:[120,0,255]},'
+    + '{x:.8,y:.7,r:.5,color:[161,0,255]},'
+    + '{x:.5,y:.9,r:.45,color:[80,0,180]},'
+    + '{x:.1,y:.8,r:.4,color:[200,50,255]}'
+    + '];'
+    + 'function draw(){'
+    + 'ctx.clearRect(0,0,W,H);t+=0.004;'
+    + 'blobs.forEach(function(b,i){'
+    + 'var ox=Math.sin(t*.7+i*1.3)*.12,oy=Math.cos(t*.5+i*2.1)*.12;'
+    + 'var x=(b.x+ox)*W,y=(b.y+oy)*H;'
+    + 'var r=b.r*Math.min(W,H)*(0.8+Math.sin(t+i)*.1);'
+    + 'var g=ctx.createRadialGradient(x,y,0,x,y,r);'
+    + 'var a=0.08+Math.sin(t*.8+i)*.03;'
+    + 'g.addColorStop(0,"rgba("+b.color.join(",")+","+a+")");'
+    + 'g.addColorStop(1,"rgba(0,0,0,0)");'
+    + 'ctx.fillStyle=g;ctx.fillRect(0,0,W,H);'
+    + '});requestAnimationFrame(draw);}'
+    + 'draw();})();';
+
+  const navScript = 'var _sid="' + sessionId + '";'
+    + 'function sendNav(tabIdx){'
+    + 'var btn=document.querySelector(".r-btn[data-tab=\\""+tabIdx+"\\"]");'
+    + 'if(btn){btn.classList.add("pressed");setTimeout(function(){btn.classList.remove("pressed");},300);}'
+    + 'document.querySelectorAll(".r-btn").forEach(function(b){b.classList.remove("active-tab");});'
+    + 'if(btn)btn.classList.add("active-tab");'
+    + 'try{'
+    + 'var ch=new BroadcastChannel("wow-remote-"+_sid);'
+    + 'ch.postMessage({type:"navigate",tab:tabIdx});ch.close();'
+    + '}catch(e){}'
+    + 'var s=document.getElementById("r-status");'
+    + 'var tx=document.getElementById("r-status-text");'
+    + 'var labels=["Sonido","Particulas","Control remoto"];'
+    + 's.className="r-status sent";'
+    + 'tx.textContent="\\u2713 "+(labels[tabIdx]||"Tab "+(tabIdx+1));'
+    + 'setTimeout(function(){s.className="r-status";tx.textContent="Listo para controlar";},1800);}';
+
+  document.open();
+  document.write('<!DOCTYPE html><html lang="es"><head>'
+    + '<meta charset="UTF-8">'
+    + '<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">'
+    + '<title>Accenture \u00b7 Control remoto</title>'
+    + '<style>' + remoteCSS + '</style>'
+    + '</head><body>'
+    + '<canvas id="bg-canvas"></canvas>'
+    + '<div id="remote-ui">'
+    + '<div class="r-header">'
+    + '<div class="r-logo">acc<em>enture</em></div>'
+    + '<div class="r-sub">Creative Studio \u00b7 Control remoto</div>'
+    + '<div class="r-divider"></div>'
+    + '</div>'
+    + '<nav class="r-nav" id="r-nav">' + btns + '</nav>'
+    + '<div class="r-status" id="r-status">'
+    + '<span class="r-status-dot" id="r-dot"></span>'
+    + '<span id="r-status-text">Listo para controlar</span>'
+    + '</div>'
+    + '</div>'
+    + '<script>' + bgScript + navScript + '<\/script>'
+    + '</body></html>');
+  document.close();
 }
 
 /* ── QR Code generator (pure JS, no library needed) ── */
