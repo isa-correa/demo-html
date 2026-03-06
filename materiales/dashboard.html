@@ -1587,6 +1587,11 @@ a { text-decoration:none; color:inherit; }
         <span id="sb-wow">Wow</span>
         <span class="sb-num">06</span>
       </div>
+      <div class="sb-item" onclick="navTo(6)">
+        <span class="sb-icon">◑</span>
+        <span id="sb-brand">Branding</span>
+        <span class="sb-num">07</span>
+      </div>
     </div>
     <div class="sb-bottom">
       <div class="lang-row">
@@ -2753,6 +2758,84 @@ a { text-decoration:none; color:inherit; }
       </div>
     </div><!-- /card 6 -->
 
+    <!-- ═══════════════════════════════════════════════════
+         CARD 7 — BRANDING EN UN CLIC
+    ═══════════════════════════════════════════════════ -->
+    <div class="card" id="c6">
+      <div class="card-inner">
+        <div class="card-eyebrow" id="ey6">07 · Branding</div>
+        <div class="card-title" id="ti6">Un clic. El branding del cliente.</div>
+
+        <div style="display:flex;gap:24px;flex:1;min-height:0;overflow:hidden;">
+
+          <!-- LEFT: intro + CTA -->
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:0;">
+            <div>
+              <p id="brand-intro" style="font-size:15px;color:var(--txt2);line-height:1.7;margin-bottom:20px;">Presentamos con el branding de Accenture. Luego le mandamos esa misma presentación con <em style="color:var(--txt);font-style:normal;font-weight:500;">su</em> identidad. Sus colores. Su tipografía. Su logo. El cliente no recibe un deck genérico — recibe algo que ya parece suyo.</p>
+
+              <div style="background:var(--surf);border:1px solid var(--bdr);padding:18px 20px;margin-bottom:16px;">
+                <div style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--p);font-weight:600;margin-bottom:10px;" id="brand-how-lbl">Cómo funciona</div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <div style="display:flex;align-items:flex-start;gap:10px;">
+                    <span style="color:var(--p);font-size:13px;margin-top:1px;flex-shrink:0;">01</span>
+                    <span style="font-size:13px;color:var(--txt2);" id="brand-step1">Se inserta la ficha técnica de branding del cliente: colores, tipografía, logo, estilos.</span>
+                  </div>
+                  <div style="display:flex;align-items:flex-start;gap:10px;">
+                    <span style="color:var(--p);font-size:13px;margin-top:1px;flex-shrink:0;">02</span>
+                    <span style="font-size:13px;color:var(--txt2);" id="brand-step2">La IA reinterpreta cada variable CSS global. Un solo archivo de tokens transforma toda la interfaz.</span>
+                  </div>
+                  <div style="display:flex;align-items:flex-start;gap:10px;">
+                    <span style="color:var(--p);font-size:13px;margin-top:1px;flex-shrink:0;">03</span>
+                    <span style="font-size:13px;color:var(--txt2);" id="brand-step3">El resultado: la misma presentación, con el branding del cliente. Sin rehacer nada. En minutos.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background:rgba(161,0,255,0.06);border-left:3px solid var(--p);padding:14px 18px;margin-bottom:20px;">
+                <p style="font-size:13px;color:var(--txt2);line-height:1.65;" id="brand-quote">Cambiar idioma: un clic. Cambiar branding: minutos, no días. Si desde la presentación sienten que les hemos pillado el truco… ¿ganamos un poco de terreno?</p>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div>
+              <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt3);margin-bottom:10px;" id="brand-cta-lbl">Ver en acción</div>
+              <a id="brand-cta-btn" href="#" onclick="openBrandingDemo(event)"
+                style="display:inline-flex;align-items:center;gap:10px;padding:14px 24px;background:var(--p);color:#fff;font-size:13px;font-weight:600;letter-spacing:.5px;text-decoration:none;transition:background .2s;position:relative;overflow:hidden;"
+                onmouseover="this.style.background='#7D00CC'" onmouseout="this.style.background='var(--p)'">
+                <span id="brand-cta-text">Ver demo de branding →</span>
+              </a>
+              <p style="font-size:11px;color:var(--txt3);margin-top:10px;" id="brand-cta-note">La demo muestra esta misma presentación reinterpretada con el branding de un cliente.</p>
+            </div>
+          </div>
+
+          <!-- RIGHT: brand guide preview (iframe of accenture-brand-guide.html) -->
+          <div style="width:420px;flex-shrink:0;display:flex;flex-direction:column;gap:10px;">
+            <div style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--txt3);font-weight:600;" id="brand-guide-lbl">El prompt visual que lo hace posible</div>
+            <div style="flex:1;min-height:0;border:1px solid var(--bdr);position:relative;overflow:hidden;">
+              <div style="position:absolute;top:0;left:0;right:0;background:var(--surf2);border-bottom:1px solid var(--bdr);padding:6px 12px;display:flex;align-items:center;gap:6px;z-index:2;">
+                <span style="width:8px;height:8px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
+                <span style="width:8px;height:8px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
+                <span style="width:8px;height:8px;border-radius:50%;background:#28c840;display:inline-block;"></span>
+                <span style="font-size:10px;color:var(--txt3);margin-left:6px;letter-spacing:1px;">accenture-brand-guide.html</span>
+              </div>
+              <iframe id="brand-guide-iframe"
+                src="accenture-brand-guide.html"
+                style="width:100%;height:100%;border:none;padding-top:28px;"
+                title="Accenture Brand Guide — Prompt Visual"></iframe>
+              <div id="brand-iframe-fallback" style="display:none;padding:24px;position:absolute;inset:0;top:28px;background:var(--surf);overflow-y:auto;">
+                <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--p);font-weight:600;margin-bottom:12px;">Accenture Brand Guide</div>
+                <p style="font-size:12px;color:var(--txt2);line-height:1.7;margin-bottom:10px;">Este archivo recoge los tokens de diseño de Accenture: colores primarios (purple <span style="color:#A100FF;">#A100FF</span>), tipografía Graphik, espaciados, reglas de uso de logo y gradientes.</p>
+                <p style="font-size:12px;color:var(--txt2);line-height:1.7;margin-bottom:10px;">Cuando se sustituye por la ficha técnica de un cliente, la IA interpreta cada token y reescribe las variables CSS globales de la presentación.</p>
+                <p style="font-size:12px;color:var(--txt2);line-height:1.7;">Este es el <strong style="color:var(--txt);">prompt visual</strong> — no es un Figma, no es un PDF. Es un archivo HTML vivo que sirve de instrucción de diseño para la IA.</p>
+              </div>
+            </div>
+            <p style="font-size:11px;color:var(--txt3);line-height:1.6;" id="brand-guide-caption">Este archivo es el «prompt visual» que usé para construir esta misma presentación. Incluye colores, tipografía, reglas de uso y ejemplos. Cuando se cambia por el branding del cliente, la IA lo interpreta y reescribe toda la interfaz.</p>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /card 7 -->
+
   </div><!-- /content -->
 <!-- Cursor popup -->
 <div class="cz-popup-overlay" id="cz-popup-overlay" onclick="closeCzPopup(event)">
@@ -2959,6 +3042,18 @@ const i18n = {
       ptIntro:'Escribe cualquier texto. Las partículas se reorganizan para formarlo.',
       qrIntro:'Escanea el QR con el móvil. Controla las pestañas de esta card desde tu teléfono.',
       qrLabel:'Pestaña activa', qrHint:'El móvil navega entre las pestañas en tiempo real.',
+    },
+    c6:{
+      ey:'07 · Branding', ti:'Un clic. El branding del cliente.', sbNav:'Branding',
+      intro:'Presentamos con el branding de Accenture. Luego le mandamos esa misma presentación con su identidad. Sus colores. Su tipografía. Su logo.',
+      howLbl:'Cómo funciona',
+      step1:'Se inserta la ficha técnica de branding del cliente: colores, tipografía, logo, estilos.',
+      step2:'La IA reinterpreta cada variable CSS global. Un solo archivo de tokens transforma toda la interfaz.',
+      step3:'El resultado: la misma presentación, con el branding del cliente. Sin rehacer nada. En minutos.',
+      quote:'Cambiar idioma: un clic. Cambiar branding: minutos, no días. Si desde la presentación sienten que les hemos pillado el truco… ¿ganamos un poco de terreno?',
+      ctaLbl:'Ver en acción', ctaText:'Ver demo de branding →', ctaNote:'La demo muestra esta misma presentación reinterpretada con el branding de un cliente.',
+      guideLbl:'El prompt visual que lo hace posible',
+      guideCaption:'Este archivo es el «prompt visual» que usé para construir esta misma presentación. Incluye colores, tipografía, reglas de uso y ejemplos.',
     }
   },
   en: { ey0:'01 · Team', ti0:'Creative Studio · Accenture Spain', r0:'Level 12 · Associate', r1:'Senior Manager · Creative Lead', r2:'Manager · UX Strategy', mail:'Email', call:'Call', chartLbl:'HTML Adoption · Creative Studio · 2025', calMonths:['January','February','March','April','May','June','July','August','September','October','November','December'], calDows:['Mo','Tu','We','Th','Fr','Sa','Su'], calEvents:{5:'First HTML meeting',18:'Live demo · Creative Studio',27:'Proposal review'}, calLegend:['First meeting','Live demo','Proposal review'], theme:'Dark mode', chartTooltip:'% adoption',
@@ -3112,6 +3207,18 @@ const i18n = {
       ptIntro:'Type any text. The particles rearrange to form it.',
       qrIntro:'Scan the QR with your phone. Control the tabs of this card from your device.',
       qrLabel:'Active tab', qrHint:'The phone navigates between tabs in real time.',
+    },
+    c6:{
+      ey:'07 · Branding', ti:'One click. The client\'s branding.', sbNav:'Branding',
+      intro:'We present with Accenture branding. Then we send the same deck in their identity. Their colours. Their typeface. Their logo.',
+      howLbl:'How it works',
+      step1:'Insert the client branding spec: colours, typography, logo, styles.',
+      step2:'AI rewrites every global CSS variable. One token file transforms the entire interface.',
+      step3:'The result: the same deck, with the client\'s branding. Nothing rebuilt. In minutes.',
+      quote:'Change language: one click. Change branding: minutes, not days. If they feel like we already get them… do we gain an edge?',
+      ctaLbl:'See it live', ctaText:'View branding demo →', ctaNote:'The demo shows this same deck reinterpreted with a client\'s branding.',
+      guideLbl:'The visual prompt behind it',
+      guideCaption:'This file is the visual prompt I used to build this presentation. It includes colours, typography, usage rules and examples.',
     }
   },
   de: { ey0:'01 · Team', ti0:'Creative Studio · Accenture Spanien', r0:'Ebene 12 · Mitarbeiter', r1:'Senior Manager · Creative Lead', r2:'Manager · UX-Strategie', mail:'E-Mail', call:'Anrufen', chartLbl:'HTML-Einführung · Creative Studio · 2025', calMonths:['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'], calDows:['Mo','Di','Mi','Do','Fr','Sa','So'], calEvents:{5:'Erstes HTML-Treffen',18:'Live-Demo · Creative Studio',27:'Vorschlagsüberprüfung'}, calLegend:['Erstes Treffen','Live-Demo','Überprüfung'], theme:'Dark mode', chartTooltip:'% Übernahme',
@@ -3265,6 +3372,18 @@ const i18n = {
       ptIntro:'Beliebigen Text eingeben. Die Partikel ordnen sich neu, um ihn zu formen.',
       qrIntro:'QR mit dem Handy scannen. Die Tabs dieser Card vom Telefon aus steuern.',
       qrLabel:'Aktiver Tab', qrHint:'Das Handy navigiert in Echtzeit zwischen den Tabs.',
+    },
+    c6:{
+      ey:'07 · Branding', ti:'Ein Klick. Das Branding des Kunden.', sbNav:'Branding',
+      intro:'Wir präsentieren mit Accenture-Branding. Dann senden wir dieselbe Präsentation mit der Identität des Kunden. Ihre Farben. Ihre Schrift. Ihr Logo.',
+      howLbl:'So funktioniert es',
+      step1:'Die Branding-Spezifikation des Kunden wird eingefügt: Farben, Typografie, Logo, Stile.',
+      step2:'Die KI schreibt alle globalen CSS-Variablen um. Eine Token-Datei transformiert die gesamte Oberfläche.',
+      step3:'Das Ergebnis: dieselbe Präsentation, mit dem Branding des Kunden. Nichts neu gebaut. In Minuten.',
+      quote:'Sprache wechseln: ein Klick. Branding wechseln: Minuten, nicht Tage.',
+      ctaLbl:'Live ansehen', ctaText:'Branding-Demo ansehen →', ctaNote:'Die Demo zeigt diese Präsentation mit dem Branding eines Kunden.',
+      guideLbl:'Der visuelle Prompt dahinter',
+      guideCaption:'Diese Datei ist der visuelle Prompt, den ich für diese Präsentation verwendet habe.',
     }
   }
 };
@@ -3304,6 +3423,7 @@ function listenContentScroll(){
     if(idx === 3 && !card4Inited){ card4Inited=true; initCard4(); }
     if(idx === 4 && !card5Inited){ card5Inited=true; initCard5(); }
     if(idx === 5 && !card6Inited){ card6Inited=true; initSoundCanvas(); }
+    if(idx === 6 && !card7Inited){ card7Inited=true; initCard7(); }
   });
 }
 
@@ -3330,6 +3450,7 @@ function applyLang(){
   applyCard4cap(L);
   applyCard5(L);
   applyCard6(L);
+  applyCard7(L);
   buildCalendar();
   if(teamChartInst) buildTeamChart();
 }
@@ -5455,6 +5576,59 @@ function applyCard6(L){
 }
 
 let card6Inited = false;
+let card7Inited = false;
+
+function initCard7(){
+  applyCard7(i18n[lang] || i18n.es);
+  // Try to load iframe; if blocked, show fallback
+  const iframe = document.getElementById('brand-guide-iframe');
+  if(iframe){
+    iframe.addEventListener('error', function(){
+      iframe.style.display='none';
+      const fb = document.getElementById('brand-iframe-fallback');
+      if(fb) fb.style.display='block';
+    });
+  }
+}
+
+function applyCard7(L){
+  const c = L.c6 || i18n.es.c6;
+  const set = (id, val) => { const el = document.getElementById(id); if(el && val != null) el.textContent = val; };
+  const setHTML = (id, val) => { const el = document.getElementById(id); if(el && val != null) el.innerHTML = val; };
+  set('ey6', c.ey); set('ti6', c.ti); set('sb-brand', c.sbNav);
+  setHTML('brand-intro', c.intro);
+  set('brand-how-lbl', c.howLbl);
+  set('brand-step1', c.step1);
+  set('brand-step2', c.step2);
+  set('brand-step3', c.step3);
+  set('brand-quote', c.quote);
+  set('brand-cta-lbl', c.ctaLbl);
+  set('brand-cta-text', c.ctaText);
+  set('brand-cta-note', c.ctaNote);
+  set('brand-guide-lbl', c.guideLbl);
+  set('brand-guide-caption', c.guideCaption);
+}
+
+function openBrandingDemo(e){
+  e.preventDefault();
+  // When the branding demo HTML is ready, update this URL
+  const demoUrl = 'branding-demo.html';
+  // Show a teaser modal until demo is ready
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;';
+  overlay.innerHTML = `
+    <div style="background:var(--surf);border:1px solid var(--bdr);max-width:480px;width:90%;padding:40px;position:relative;">
+      <button onclick="this.closest('[style]').remove()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--txt2);font-size:18px;cursor:pointer;">✕</button>
+      <div style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--p);font-weight:600;margin-bottom:12px;">07 · Branding en un clic</div>
+      <div style="font-size:22px;font-weight:300;color:var(--txt);margin-bottom:16px;letter-spacing:-.3px;">La demo está en camino.</div>
+      <p style="font-size:14px;color:var(--txt2);line-height:1.7;margin-bottom:24px;">Cuando el archivo <code style="background:var(--surf2);padding:2px 6px;font-size:12px;color:var(--p);">branding-demo.html</code> esté listo, este botón abrirá directamente la presentación reinterpretada con el branding del cliente.</p>
+      <div style="background:rgba(161,0,255,0.06);border-left:3px solid var(--p);padding:12px 16px;">
+        <p style="font-size:12px;color:var(--txt2);line-height:1.6;">Por ahora, el prompt visual (el brand guide de Accenture) está disponible en el panel derecho de esta misma card — ese es el archivo que alimenta a la IA para reinterpretar toda la interfaz.</p>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', function(ev){ if(ev.target === overlay) overlay.remove(); });
+}
 let micStream = null, micActive = false;
 let audioCtx = null, analyser = null, soundRAF = null;
 let wowActiveTab = 0;
@@ -5516,6 +5690,15 @@ function drawSphere(ctx, cx, cy, level){
   grad.addColorStop(1, `rgba(80,0,140,${0.4+level*0.2})`);
   ctx.fillStyle = grad; ctx.fill();
   ctx.strokeStyle = `rgba(220,160,255,${0.15+level*0.3})`; ctx.lineWidth=0.7; ctx.stroke();
+  if(level < 0.04){
+    const isDark = !document.getElementById('dashboard').classList.contains('light-mode');
+    ctx.beginPath(); ctx.arc(cx,cy,baseR*1.15,0,Math.PI*2);
+    ctx.strokeStyle=isDark?'rgba(161,0,255,0.45)':'rgba(161,0,255,0.3)';
+    ctx.lineWidth=1.5; ctx.setLineDash([4,6]); ctx.stroke(); ctx.setLineDash([]);
+    ctx.beginPath(); ctx.arc(cx,cy,baseR*1.5,0,Math.PI*2);
+    ctx.strokeStyle=isDark?'rgba(161,0,255,0.18)':'rgba(161,0,255,0.12)';
+    ctx.lineWidth=1; ctx.setLineDash([2,10]); ctx.stroke(); ctx.setLineDash([]);
+  }
   if(level > 0.3){
     const n = Math.floor(level*18);
     for(let i=0;i<n;i++){
@@ -5562,7 +5745,7 @@ function stopMic(){
   document.getElementById('wow-canvas-label').style.display = '';
   document.getElementById('wow-meter-fill').style.width = '0%';
   const canvas = document.getElementById('wow-sound-canvas');
-  drawSphere(canvas.getContext('2d'), canvas.width/2, canvas.height/2, 0);
+  if(canvas){ const ctx2=canvas.getContext('2d'); ctx2.clearRect(0,0,canvas.width,canvas.height); drawSphere(ctx2,canvas.width/2,canvas.height/2,0); }
 }
 
 function soundLoop(){
@@ -5728,7 +5911,7 @@ function initVoiceControl(){
     const t = e.results[e.results.length-1][0].transcript.trim().toLowerCase();
     const cur = voiceCurrentSection;
     if(t.includes('siguiente') || t.includes('adelante') || t.includes('next')){
-      navTo(Math.min(cur+1, 5));
+      navTo(Math.min(cur+1, 6));
     } else if(t.includes('atr') || t.includes('anterior') || t.includes('back')){
       navTo(Math.max(cur-1, 0));
     } else if(t.includes('equipo'))      { navTo(0); }
@@ -5737,6 +5920,7 @@ function initVoiceControl(){
     else if(t.includes('capacidad'))     { navTo(3); }
     else if(t.includes('producci'))      { navTo(4); }
     else if(t.includes('wow'))           { navTo(5); }
+    else if(t.includes('brand') || t.includes('marca') || t.includes('cliente')) { navTo(6); }
   };
   voiceActive = true;
   voiceRecog.start();
@@ -5812,6 +5996,7 @@ function startQRHost(){
               '.cap-tab',          // 3 Capacidades
               '.prod-tab',         // 4 Producción
               '.wow-tab',          // 5 Wow
+              null,                // 6 Branding
             ];
             const sel = tabSelectors[data.section];
             if(sel){
@@ -5824,6 +6009,10 @@ function startQRHost(){
         } else if(data.type === 'lang'){
           const btns = document.querySelectorAll('.lang-btn');
           btns.forEach(b => { if(b.textContent.trim().toLowerCase() === data.lang) b.click(); });
+        } else if(data.type === 'theme'){
+          toggleTheme();
+        } else if(data.type === 'branding-demo'){
+          openBrandingDemo({ preventDefault:()=>{} });
         }
       });
       conn.on('close', () => {
@@ -5890,6 +6079,7 @@ html,body{width:100%;min-height:100%;font-family:'Helvetica Neue',Arial,sans-ser
     [['⊹','Cursor'],['✦','Partículas'],['◫','Fondos'],['◈','Componentes']],
     [['📦','Entrega'],['🗂','Estructura'],['✅','Checklist'],['📝','Notas']],
     [['◉','Sonido'],['⬡','Partículas'],['⊞','Control remoto']],
+    [['◑','Ver demo branding']],
   ];
 
   const cards = [
@@ -5899,9 +6089,10 @@ html,body{width:100%;min-height:100%;font-family:'Helvetica Neue',Arial,sans-ser
     ['✦','Capacidades','04'],
     ['⊡','Producción','05'],
     ['⚡','Wow','06'],
+    ['◑','Branding','07'],
   ];
 
-  const tabFns = ['','cmpTab','dvTab','capTab','prodTab','wowTab'];
+  const tabFns = ['','cmpTab','dvTab','capTab','prodTab','wowTab','brandTab'];
 
   const btns = cards.map(function(c,i){
     const subs = subtabs[i];
@@ -5983,6 +6174,7 @@ function sendTab(section,tab){
   var btn=document.querySelector('.r-sub-btn[data-section="'+section+'"][data-tab="'+tab+'"]');
   if(btn){btn.classList.add('active-tab','pressed');setTimeout(function(){btn.classList.remove('pressed');},280);}
   if(!_conn||!_conn.open){log('Sin conexión');return;}
+  if(section===6){_conn.send({type:'branding-demo'});log('● Abriendo demo…','r-status ok');return;}
   _conn.send({type:'navigate',section:section,tab:tab});
   log('● Conectado','r-status ok');
 }
@@ -5992,6 +6184,18 @@ function setLang(l){
     if(b)b.className='r-lang-btn'+(x===l?' active':'');
   });
   if(_conn&&_conn.open)_conn.send({type:'lang',lang:l});
+}
+var _isDark=true;
+function sendTheme(){
+  _isDark=!_isDark;
+  var btn=document.getElementById('r-theme-btn');
+  if(btn){btn.textContent=_isDark?'\u25d1 Dark mode':'\u25d0 Light mode';btn.style.color=_isDark?'#888':'#A100FF';btn.style.borderColor=_isDark?'#2a2a2a':'#A100FF';}
+  if(_conn&&_conn.open){_conn.send({type:'theme'});log('\u25cf Enviado','r-status ok');}
+  else log('Sin conexión');
+}
+function sendBrandingDemo(){
+  if(_conn&&_conn.open){_conn.send({type:'branding-demo'});log('\u25cf Abriendo…','r-status ok');}
+  else log('Sin conexión');
 }
 initPeer();
 `;
