@@ -5756,59 +5756,45 @@ function ptLoop(){
 
 /* ══════════════════════════════════════════════════
    CONTROL REMOTO QR — PeerJS (cross-device)
+   Controla el menu principal: Equipo, PPT vs HTML…
 ══════════════════════════════════════════════════ */
-let qrPeer = null, qrInited = false, qrSessionId = null;
+let qrPeer = null, qrInited = false;
 
 function initQR(){
   if(qrInited) return;
   qrInited = true;
-
   const statusEl = document.getElementById('wow-qr-status');
   if(statusEl) statusEl.textContent = 'Iniciando…';
-
-  // Load PeerJS from CDN
+  if(typeof Peer !== 'undefined'){ startQRHost(); return; }
   const script = document.createElement('script');
-  script.src = 'https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js';
+  script.src = 'https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js';
   script.onload = () => startQRHost();
-  script.onerror = () => {
-    if(statusEl) statusEl.textContent = 'Error cargando PeerJS';
-  };
+  script.onerror = () => { if(statusEl) statusEl.textContent = 'Sin conexión — PeerJS no disponible'; };
   document.head.appendChild(script);
 }
 
 function startQRHost(){
   const statusEl = document.getElementById('wow-qr-status');
   try {
-    qrPeer = new Peer(); // uses free PeerJS cloud server
-
+    qrPeer = new Peer(undefined, { debug: 0 });
     qrPeer.on('open', (id) => {
-      qrSessionId = id;
-      const remoteURL = `${location.origin}${location.pathname}#remote=${id}`;
+      const remoteURL = location.origin + location.pathname + '#remote=' + id;
       drawQRCode(remoteURL);
-      if(statusEl){ statusEl.textContent = 'Esperando conexión…'; statusEl.className = 'wow-qr-status'; }
+      if(statusEl){ statusEl.textContent = 'Esperando móvil…'; statusEl.className = 'wow-qr-status'; }
     });
-
     qrPeer.on('connection', (conn) => {
-      if(statusEl){ statusEl.textContent = '● Conectado'; statusEl.className = 'wow-qr-status connected'; }
+      conn.on('open', () => {
+        if(statusEl){ statusEl.textContent = '● Conectado'; statusEl.className = 'wow-qr-status connected'; }
+      });
       conn.on('data', (data) => {
-        if(data && data.type === 'navigate'){
-          navTo(data.tab);
-          // Sync tab pills
-          document.querySelectorAll('.wow-qr-tab-pill').forEach(p => p.classList.toggle('active', +p.dataset.tab === data.tab));
-        }
+        if(data && data.type === 'navigate') navTo(data.section);
       });
       conn.on('close', () => {
         if(statusEl){ statusEl.textContent = 'Desconectado'; statusEl.className = 'wow-qr-status'; }
       });
     });
-
-    qrPeer.on('error', (err) => {
-      if(statusEl) statusEl.textContent = 'Error: ' + err.type;
-    });
-
-  } catch(e){
-    if(statusEl) statusEl.textContent = 'PeerJS no disponible';
-  }
+    qrPeer.on('error', (err) => { if(statusEl) statusEl.textContent = 'Error: ' + err.type; });
+  } catch(e){ if(statusEl) statusEl.textContent = 'PeerJS no disponible'; }
 }
 
 // Remote controller page — activates if URL has #remote=SESSION
@@ -5896,26 +5882,26 @@ function checkIfRemote(){
 
   const navScript = 'var _sid="' + sessionId + '";'
     + 'var _labels=' + JSON.stringify(labels) + ';'
-    + 'var _peer=null,_conn=null,_connecting=false;'
-    + 'function getConn(cb){'
-    + '  if(_conn&&_conn.open){cb(_conn);return;}'
-    + '  if(_connecting){setTimeout(function(){getConn(cb);},200);return;}'
-    + '  _connecting=true;'
-    + '  var s=document.getElementById("r-st"),tx=document.getElementById("r-tx");'
-    + '  s.className="r-status";tx.textContent="Conectando…";'
-    + '  var script=document.createElement("script");'
-    + '  script.src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js";'
-    + '  script.onload=function(){'
-    + '    _peer=new Peer();'
+    + 'var _peer=null,_conn=null;'
+    + 'function initPeer(){'
+    + '  var tx=document.getElementById("r-tx"),s=document.getElementById("r-st");'
+    + '  tx.textContent="Conectando…";'
+    + '  var scr=document.createElement("script");'
+    + '  scr.src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js";'
+    + '  scr.onload=function(){'
+    + '    _peer=new Peer(undefined,{debug:0});'
     + '    _peer.on("open",function(){'
-    + '      _conn=_peer.connect(_sid);'
-    + '      _conn.on("open",function(){_connecting=false;tx.textContent="Conectado";cb(_conn);});'
-    + '      _conn.on("error",function(){_connecting=false;tx.textContent="Error de conexión";});'
-    + '      _conn.on("close",function(){_conn=null;tx.textContent="Desconectado";});'
+    + '      _conn=_peer.connect(_sid,{reliable:true});'
+    + '      _conn.on("open",function(){'
+    + '        s.className="r-status sent";tx.textContent="Listo para controlar";'
+    + '        setTimeout(function(){s.className="r-status";},1500);'
+    + '      });'
+    + '      _conn.on("error",function(e){tx.textContent="Error conn";});'
+    + '      _conn.on("close",function(){tx.textContent="Desconectado";_conn=null;});'
     + '    });'
-    + '    _peer.on("error",function(e){_connecting=false;tx.textContent="Error: "+e.type;});'
+    + '    _peer.on("error",function(e){tx.textContent="Error: "+e.type;});'
     + '  };'
-    + '  document.head.appendChild(script);'
+    + '  document.head.appendChild(scr);'
     + '}'
     + 'function sendNav(idx){'
     + '  var btn=document.querySelector(".r-btn[data-card=\\""+idx+"\\"]");'
@@ -5923,15 +5909,15 @@ function checkIfRemote(){
     + '  document.querySelectorAll(".r-btn").forEach(function(b){b.classList.remove("active-card");});'
     + '  if(btn)btn.classList.add("active-card");'
     + '  var s=document.getElementById("r-st"),tx=document.getElementById("r-tx");'
-    + '  getConn(function(conn){'
-    + '    try{conn.send({type:"navigate",tab:idx});}catch(e){}'
-    + '    s.className="r-status sent";'
-    + '    tx.textContent="\\u2713 "+(_labels[idx]||"Card "+(idx+1));'
-    + '    setTimeout(function(){s.className="r-status";tx.textContent="Listo para controlar";},1800);'
-    + '  });'
+    + '  if(!_conn||!_conn.open){'
+    + '    tx.textContent="Sin conexión — recarga la página";return;'
+    + '  }'
+    + '  try{_conn.send({type:"navigate",section:idx});}catch(e){tx.textContent="Error al enviar";return;}'
+    + '  s.className="r-status sent";'
+    + '  tx.textContent="\u2713 "+(_labels[idx]||"Sección "+(idx+1));'
+    + '  setTimeout(function(){s.className="r-status";tx.textContent="Listo para controlar";},1800);'
     + '}'
-    + '// Auto-connect on load'
-    + 'window.addEventListener("load",function(){getConn(function(){});});';
+    + 'window.addEventListener("load",function(){initPeer();});';
 
   document.open();
   document.write('<!DOCTYPE html><html lang="es"><head>'
