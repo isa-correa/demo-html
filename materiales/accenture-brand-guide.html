@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accenture — Brand Style Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Graphik:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ac-purple: #A100FF;
+    --ac-black: #000000;
+    --ac-white: #FFFFFF;
+    --ac-gray-100: #F2F2F2;
+    --ac-gray-200: #E6E6E6;
+    --ac-gray-300: #CCCCCC;
+    --ac-gray-500: #999999;
+    --ac-gray-700: #555555;
+    --ac-gray-900: #1A1A1A;
+
+    /* Secondary palette */
+    --ac-light-purple: #D4A0FF;
+    --ac-mid-purple: #7D00CC;
+    --ac-dark-purple: #5C0099;
+
+    /* Utility */
+    --ac-green: #00CC88;
+    --ac-orange: #FF6600;
+    --ac-cyan: #00C8FF;
+
+    --font: 'Graphik', 'Arial', sans-serif;
+    --mono: 'Courier New', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font);
+    background: var(--ac-white);
+    color: var(--ac-black);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    background: var(--ac-black);
+    padding: 48px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 320px; height: 320px;
+    background: var(--ac-purple);
+    border-radius: 50%;
+    transform: translate(40%, 60%);
+    opacity: 0.6;
+    filter: blur(80px);
+  }
+  .logo-area { position: relative; z-index: 1; }
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .logo-symbol {
+    width: 48px; height: 48px;
+    background: var(--ac-purple);
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    /* The Accenture ">" is simplified as triangle accent */
+  }
+  .logo-wordmark {
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--ac-white);
+    letter-spacing: -0.5px;
+  }
+  .logo-wordmark span { color: var(--ac-purple); }
+  header h1 {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ac-gray-500);
+  }
+  header p {
+    color: var(--ac-gray-300);
+    font-size: 14px;
+    margin-top: 6px;
+    font-weight: 300;
+  }
+
+  /* ─── LAYOUT ─── */
+  main { max-width: 1100px; margin: 0 auto; padding: 64px 48px; }
+  section { margin-bottom: 80px; }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ac-purple);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 32px;
+    font-weight: 300;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+  .section-desc {
+    color: var(--ac-gray-700);
+    font-size: 14px;
+    max-width: 560px;
+    margin-bottom: 40px;
+    line-height: 1.7;
+  }
+  .divider {
+    height: 1px;
+    background: var(--ac-gray-200);
+    margin-bottom: 80px;
+  }
+
+  /* ─── LOGO SECTION ─── */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .logo-box {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .logo-box.dark { background: var(--ac-black); }
+  .logo-box.light { background: var(--ac-gray-100); }
+  .logo-box.purple-bg { background: var(--ac-purple); }
+  .logo-box .mock-logo {
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: -0.3px;
+  }
+  .logo-box .mock-logo .accent { 
+    font-style: italic; 
+    font-weight: 600;
+  }
+  .logo-box.dark .mock-logo { color: var(--ac-white); }
+  .logo-box.dark .mock-logo .accent { color: var(--ac-purple); }
+  .logo-box.light .mock-logo { color: var(--ac-black); }
+  .logo-box.light .mock-logo .accent { color: var(--ac-purple); }
+  .logo-box.purple-bg .mock-logo { color: var(--ac-white); }
+  .logo-box.purple-bg .mock-logo .accent { color: var(--ac-black); }
+  .logo-tag { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  .logo-box.dark .logo-tag, .logo-box.purple-bg .logo-tag { color: var(--ac-gray-500); }
+  .logo-box.light .logo-tag { color: var(--ac-gray-700); }
+
+  /* ─── COLORS ─── */
+  .color-section-group { margin-bottom: 40px; }
+  .color-group-title {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ac-gray-500);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .color-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .swatch {
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .swatch-color {
+    height: 80px;
+    position: relative;
+  }
+  .swatch-info {
+    padding: 10px 12px;
+    background: var(--ac-gray-100);
+  }
+  .swatch-name { font-size: 12px; font-weight: 600; display: block; }
+  .swatch-hex { font-size: 11px; color: var(--ac-gray-500); font-family: var(--mono); }
+  .swatch-usage { font-size: 10px; color: var(--ac-gray-500); margin-top: 2px; display: block; }
+
+  /* primary purple */
+  .s-purple .swatch-color { background: var(--ac-purple); }
+  .s-black .swatch-color { background: var(--ac-black); }
+  .s-white .swatch-color { background: var(--ac-white); border: 1px solid var(--ac-gray-200); }
+  /* purple shades */
+  .s-lp .swatch-color { background: var(--ac-light-purple); }
+  .s-mp .swatch-color { background: var(--ac-mid-purple); }
+  .s-dp .swatch-color { background: var(--ac-dark-purple); }
+  /* grays */
+  .s-g1 .swatch-color { background: var(--ac-gray-100); border: 1px solid var(--ac-gray-200); }
+  .s-g2 .swatch-color { background: var(--ac-gray-300); }
+  .s-g3 .swatch-color { background: var(--ac-gray-500); }
+  .s-g4 .swatch-color { background: var(--ac-gray-700); }
+  /* utility */
+  .s-gr .swatch-color { background: var(--ac-green); }
+  .s-or .swatch-color { background: var(--ac-orange); }
+  .s-cy .swatch-color { background: var(--ac-cyan); }
+
+  .usage-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+  .badge-primary { background: var(--ac-purple); color: white; }
+  .badge-secondary { background: var(--ac-gray-200); color: var(--ac-gray-700); }
+
+  /* ─── GRADIENT RULE ─── */
+  .gradient-rule {
+    border: 2px solid;
+    border-radius: 2px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .gradient-rule.forbidden { border-color: #FF3333; background: #FFF5F5; }
+  .gradient-rule.allowed { border-color: var(--ac-purple); background: #F8F0FF; }
+  .rule-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .rule-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .rule-body { font-size: 13px; color: var(--ac-gray-700); line-height: 1.6; }
+
+  .gradient-examples {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .grad-box {
+    height: 120px;
+    border-radius: 2px;
+    display: flex;
+    align-items: flex-end;
+    padding: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .grad-box label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 500;
+    background: rgba(0,0,0,0.4);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+  .grad-box label.dark { color: var(--ac-black); background: rgba(255,255,255,0.4); }
+  .grad-box.nope::before {
+    content: '✕ NO USAR';
+    position: absolute;
+    top: 10px; right: 10px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: #FF3333;
+    background: white;
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+  .grad-box.ok::before {
+    content: '✓ ACEPTADO';
+    position: absolute;
+    top: 10px; right: 10px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--ac-purple);
+    background: white;
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+  /* gradient samples */
+  .g1 { background: linear-gradient(135deg, #A100FF, #FF00AA); }
+  .g2 { background: linear-gradient(135deg, #7D00CC 0%, #000 100%); }
+  .g3 { background: linear-gradient(135deg, #A100FF 0%, rgba(161,0,255,0.0) 100%), #000; }
+  .g4 { background: linear-gradient(180deg, #000000 0%, #1A1A1A 100%); }
+  .g5 { background: linear-gradient(135deg, #FF6600, #A100FF); }
+  .g6 { background: linear-gradient(135deg, #A100FF 0%, #5C0099 100%); }
+
+  /* ─── TYPOGRAPHY ─── */
+  .type-row {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 32px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--ac-gray-200);
+    align-items: start;
+  }
+  .type-meta { padding-top: 6px; }
+  .type-meta .t-role {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ac-purple);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .type-meta .t-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .type-meta .t-spec { font-size: 12px; color: var(--ac-gray-500); font-family: var(--mono); line-height: 1.8; }
+  .type-sample { }
+
+  /* Simulated Graphik weights */
+  .t-display { font-size: 48px; font-weight: 300; letter-spacing: -1.5px; line-height: 1.05; }
+  .t-h1 { font-size: 36px; font-weight: 300; letter-spacing: -0.5px; line-height: 1.1; }
+  .t-h2 { font-size: 24px; font-weight: 400; letter-spacing: -0.3px; line-height: 1.2; }
+  .t-h3 { font-size: 18px; font-weight: 500; letter-spacing: 0; line-height: 1.3; }
+  .t-body { font-size: 15px; font-weight: 400; line-height: 1.7; color: var(--ac-gray-700); }
+  .t-caption { font-size: 12px; font-weight: 400; color: var(--ac-gray-500); line-height: 1.5; }
+  .t-label { font-size: 11px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ac-purple); }
+
+  .font-forbidden {
+    background: var(--ac-gray-100);
+    border-left: 4px solid #FF3333;
+    padding: 16px 20px;
+    margin-top: 32px;
+    border-radius: 0 2px 2px 0;
+  }
+  .font-forbidden strong { font-size: 13px; color: #FF3333; display: block; margin-bottom: 8px; }
+  .font-forbidden span { font-size: 13px; color: var(--ac-gray-700); }
+
+  /* ─── SPACING ─── */
+  .spacing-scale {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .space-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--ac-gray-200);
+  }
+  .space-box {
+    background: var(--ac-purple);
+    height: 16px;
+    flex-shrink: 0;
+    border-radius: 1px;
+  }
+  .space-label { font-size: 12px; font-family: var(--mono); color: var(--ac-gray-700); min-width: 80px; }
+  .space-desc { font-size: 12px; color: var(--ac-gray-500); }
+
+  /* ─── BUTTONS ─── */
+  .btn-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .btn {
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+    padding: 13px 28px;
+    border-radius: 0;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary { background: var(--ac-purple); color: white; }
+  .btn-primary:hover { background: var(--ac-mid-purple); }
+  .btn-outline { background: transparent; color: var(--ac-purple); border: 2px solid var(--ac-purple); }
+  .btn-outline:hover { background: var(--ac-purple); color: white; }
+  .btn-dark { background: var(--ac-black); color: white; }
+  .btn-ghost { background: transparent; color: var(--ac-black); border: 2px solid var(--ac-black); }
+  .btn-sm { padding: 8px 18px; font-size: 12px; }
+  .btn-lg { padding: 18px 40px; font-size: 15px; }
+
+  /* ─── VOICE / RULES ─── */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--ac-gray-200);
+  }
+  .rule-card {
+    background: var(--ac-white);
+    padding: 28px 32px;
+  }
+  .rule-card h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .rule-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .rule-card li {
+    font-size: 13px;
+    color: var(--ac-gray-700);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--ac-gray-100);
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .rule-card li::before { content: '→'; color: var(--ac-purple); flex-shrink: 0; }
+
+  /* ─── IMAGERY PRINCIPLES ─── */
+  .img-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .img-card {
+    padding: 32px;
+    background: var(--ac-gray-100);
+  }
+  .img-icon { font-size: 28px; margin-bottom: 14px; }
+  .img-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .img-body { font-size: 13px; color: var(--ac-gray-700); line-height: 1.6; }
+
+  /* ─── DO/DONT ─── */
+  .doDont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--ac-gray-200);
+    margin-top: 20px;
+  }
+  .do-box, .dont-box { padding: 24px; background: white; }
+  .do-box h5 { color: var(--ac-green); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .dont-box h5 { color: #FF3333; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .do-box li, .dont-box li { font-size: 13px; color: var(--ac-gray-700); padding: 4px 0; list-style: none; display: flex; gap: 8px; }
+  .do-box li::before { content: '✓'; color: var(--ac-green); }
+  .dont-box li::before { content: '✕'; color: #FF3333; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ac-black);
+    color: var(--ac-gray-500);
+    text-align: center;
+    padding: 40px;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  footer span { color: var(--ac-purple); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ HEADER ═══════════════════════════════════ -->
+<header>
+  <div class="logo-area">
+    <div class="logo-mark">
+      <div class="logo-symbol"></div>
+      <div class="logo-wordmark">accenture<span>.</span></div>
+    </div>
+    <h1>Brand Style Guide</h1>
+    <p>Guía de identidad corporativa — Uso interno y externo</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- ═══════════════════════════════════ LOGOTIPO ═══════════════════════════════════ -->
+  <section>
+    <div class="section-label">01 — Identidad</div>
+    <h2 class="section-title">El Logotipo</h2>
+    <p class="section-desc">El logotipo de Accenture combina el wordmark en tipografía Graphik Light con el símbolo ">" que representa movimiento, dirección y transformación. Es el activo más valioso de la marca.</p>
+
+    <div class="logo-grid">
+      <div class="logo-box dark">
+        <div class="mock-logo">accenture<span class="accent">›</span></div>
+        <div class="logo-tag" style="color:var(--ac-gray-500);">Versión principal — fondo negro</div>
+      </div>
+      <div class="logo-box light">
+        <div class="mock-logo">accenture<span class="accent">›</span></div>
+        <div class="logo-tag">Versión secundaria — fondo blanco / claro</div>
+      </div>
+      <div class="logo-box purple-bg">
+        <div class="mock-logo">accenture<span class="accent" style="color:#000;">›</span></div>
+        <div class="logo-tag">Uso excepcional — fondo violeta</div>
+      </div>
+    </div>
+
+    <div class="doDont" style="margin-top:2px;">
+      <div class="do-box">
+        <h5>✓ Correcto</h5>
+        <ul>
+          <li>Usar siempre sobre fondos aprobados</li>
+          <li>Respetar el espacio de protección (altura "x" × 2)</li>
+          <li>Tamaño mínimo: 80px digital / 25mm impresión</li>
+          <li>Logo en blanco sobre fondo negro como versión principal</li>
+        </ul>
+      </div>
+      <div class="dont-box">
+        <h5>✕ Incorrecto</h5>
+        <ul>
+          <li>Nunca cambiar los colores del wordmark</li>
+          <li>Nunca rotar o distorsionar el logo</li>
+          <li>Nunca usar sobre fondos fotográficos complejos</li>
+          <li>Nunca añadir efectos: sombras, brillos, degradados</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════ COLORES ═══════════════════════════════════ -->
+  <section>
+    <div class="section-label">02 — Color</div>
+    <h2 class="section-title">Sistema de Color</h2>
+    <p class="section-desc">La paleta de Accenture está dominada por el violeta #A100FF, negro y blanco. Los colores secundarios son de uso exclusivo como acentos funcionales, nunca compiten con el violeta principal.</p>
+
+    <div class="color-section-group">
+      <div class="color-group-title">Colores Primarios <span class="usage-badge badge-primary">Core</span></div>
+      <div class="color-row">
+        <div class="swatch s-purple">
+          <div class="swatch-color"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Accenture Purple</span>
+            <span class="swatch-hex">#A100FF</span>
+            <span class="swatch-usage">Color principal. CTAs, highlights, accentos.</span>
+          </div>
+        </div>
+        <div class="swatch s-black">
+          <div class="swatch-color"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Black</span>
+            <span class="swatch-hex">#000000</span>
+            <span class="swatch-usage">Fondos, tipografía, bordes.</span>
+          </div>
+        </div>
+        <div class="swatch s-white">
+          <div class="swatch-color"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">White</span>
+            <span class="swatch-hex">#FFFFFF</span>
+            <span class="swatch-usage">Fondos, espacio negativo, tipografía inversa.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-section-group">
+      <div class="color-group-title">Tonalidades de Violeta <span class="usage-badge badge-secondary">Apoyo</span></div>
+      <div class="color-row">
+        <div class="swatch s-lp">
+          <div class="swatch-color"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Light Purple</span>
+            <span class="swatch-hex">#D4A0FF</span>
+            <span class="swatch-usage">Estados hover, fondos suaves.</span>
+          </div>
+        </div>
+        <div class="swatch s-mp">
+          <div class="swatch-color"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Mid Purple</span>
+            <span class="swatch-hex">#7D00CC</span>
+            <span class="swatch-usage">Estados activos, variantes oscuras.</span>
+          </div>
+        </div>
+        <div class="swatch s-dp">
+          <div class="swatch-color"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Dark Purple</span>
+            <span class="swatch-hex">#5C0099</span>
+            <span class="swatch-usage">Profundidad, fondos profundos.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-section-group">
+      <div class="color-group-title">Escala de Grises</div>
+      <div class="color-row">
+        <div class="swatch s-g1">
+          <div class="swatch-color"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Gray 100</span>
+            <span class="swatch-hex">#F2F2F2</span>
+            <span class="swatch-usage">Fondos alternativos, tarjetas.</span>
+          </div>
+        </div>
+        <div class="swatch s-g2">
+          <div class="swatch-color"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Gray 300</span>
+            <span class="swatch-hex">#CCCCCC</span>
+            <span class="swatch-usage">Bordes, separadores.</span>
+          </div>
+        </div>
+        <div class="swatch s-g3">
+          <div class="swatch-color"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Gray 500</span>
+            <span class="swatch-hex">#999999</span>
+            <span class="swatch-usage">Texto secundario, captions.</span>
+          </div>
+        </div>
+        <div class="swatch s-g4">
+          <div class="swatch-color"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Gray 700</span>
+            <span class="swatch-hex">#555555</span>
+            <span class="swatch-usage">Body text en modo claro.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-section-group">
+      <div class="color-group-title">Colores Funcionales <span class="usage-badge badge-secondary">Solo datos / UI</span></div>
+      <div class="color-row">
+        <div class="swatch s-gr">
+          <div class="swatch-color"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Success Green</span>
+            <span class="swatch-hex">#00CC88</span>
+            <span class="swatch-usage">Éxito, confirmaciones, KPIs positivos.</span>
+          </div>
+        </div>
+        <div class="swatch s-or">
+          <div class="swatch-color"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Alert Orange</span>
+            <span class="swatch-hex">#FF6600</span>
+            <span class="swatch-usage">Alertas, advertencias, énfasis.</span>
+          </div>
+        </div>
+        <div class="swatch s-cy">
+          <div class="swatch-color"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Tech Cyan</span>
+            <span class="swatch-hex">#00C8FF</span>
+            <span class="swatch-usage">Tecnología, datos, visualizaciones.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════ DEGRADADOS ═══════════════════════════════════ -->
+  <section>
+    <div class="section-label">03 — Degradados</div>
+    <h2 class="section-title">Política de Degradados</h2>
+    <p class="section-desc">Accenture tiene una postura muy clara: los degradados son de uso <strong>muy restringido</strong>. La marca prefiere bloques de color sólidos, contrastados, con personalidad propia.</p>
+
+    <div class="gradient-rule forbidden">
+      <div class="rule-icon">🚫</div>
+      <div>
+        <div class="rule-title" style="color:#CC0000;">PROHIBIDO — Degradados decorativos genéricos</div>
+        <div class="rule-body">No usar degradados como elemento de fondo puramente estético, especialmente del estilo "startup tech" (púrpura → rosa, arcoíris, etc.). Estos degradados diluyen la identidad de marca y comunican frivolidad. Tampoco aplicar sobre el logotipo ni sobre tipografías principales.</div>
+      </div>
+    </div>
+
+    <div class="gradient-rule allowed">
+      <div class="rule-icon">✅</div>
+      <div>
+        <div class="rule-title" style="color:var(--ac-purple);">PERMITIDO — Degradados funcionales dentro de la paleta</div>
+        <div class="rule-body">Se aceptan únicamente degradados dentro de la familia de violeta (del violeta principal hacia su versión oscura) o degradados del violeta hacia negro para crear profundidad. También transiciones de opacidad sobre el color, cuando son funcionales (p.ej. overlays sobre fotografía).</div>
+      </div>
+    </div>
+
+    <div class="gradient-examples">
+      <div class="grad-box g1 nope"><label>Purple → Rosa — Prohibido</label></div>
+      <div class="grad-box g5 nope"><label>Orange → Purple — Prohibido</label></div>
+      <div class="grad-box g6 ok"><label>Purple → Dark Purple — Permitido</label></div>
+      <div class="grad-box g2 ok"><label>Purple → Black — Permitido</label></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════ TIPOGRAFÍA ═══════════════════════════════════ -->
+  <section>
+    <div class="section-label">04 — Tipografía</div>
+    <h2 class="section-title">Sistema Tipográfico</h2>
+    <p class="section-desc">La tipografía corporativa de Accenture es <strong>Graphik</strong>, diseñada por Commercial Type. Es una grotesca contemporánea con carácter propio: neutral sin ser anónima, moderna sin ser frívola.</p>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="t-role">Display / Hero</div>
+        <div class="t-name">Graphik Light</div>
+        <div class="t-spec">Weight: 300<br>Size: 48–72px<br>Tracking: –1.5px<br>Leading: 1.0–1.1</div>
+      </div>
+      <div class="type-sample">
+        <div class="t-display">Technology.<br>Transformed.</div>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="t-role">Heading 1</div>
+        <div class="t-name">Graphik Light</div>
+        <div class="t-spec">Weight: 300<br>Size: 32–42px<br>Tracking: –0.5px<br>Leading: 1.1</div>
+      </div>
+      <div class="type-sample">
+        <div class="t-h1">Innovación que impulsa el cambio real</div>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="t-role">Heading 2</div>
+        <div class="t-name">Graphik Regular</div>
+        <div class="t-spec">Weight: 400<br>Size: 22–28px<br>Tracking: –0.3px<br>Leading: 1.2</div>
+      </div>
+      <div class="type-sample">
+        <div class="t-h2">Soluciones digitales para empresas globales</div>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="t-role">Heading 3 / Subheading</div>
+        <div class="t-name">Graphik Medium</div>
+        <div class="t-spec">Weight: 500<br>Size: 16–20px<br>Tracking: 0<br>Leading: 1.3</div>
+      </div>
+      <div class="type-sample">
+        <div class="t-h3">Estrategia, tecnología y operaciones integradas</div>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="t-role">Body Text</div>
+        <div class="t-name">Graphik Regular</div>
+        <div class="t-spec">Weight: 400<br>Size: 14–16px<br>Tracking: 0<br>Leading: 1.6–1.8</div>
+      </div>
+      <div class="type-sample">
+        <div class="t-body">Accenture es una empresa líder global de servicios profesionales que ayuda a las organizaciones a construir su núcleo digital y optimizar sus operaciones para crecer y crear valor sostenible para todos sus grupos de interés.</div>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="t-role">Caption / Footnote</div>
+        <div class="t-name">Graphik Regular</div>
+        <div class="t-spec">Weight: 400<br>Size: 11–13px<br>Color: Gray 500</div>
+      </div>
+      <div class="type-sample">
+        <div class="t-caption">Fuente: Accenture Research, 2024. Datos basados en encuestas a 3.500 directivos de 21 países.</div>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="t-role">Label / Eyebrow</div>
+        <div class="t-name">Graphik Semibold</div>
+        <div class="t-spec">Weight: 600<br>Size: 10–12px<br>ALL CAPS<br>Tracking: +2.5px</div>
+      </div>
+      <div class="type-sample" style="padding-top:8px;">
+        <div class="t-label">Innovación — Tecnología — Estrategia</div>
+      </div>
+    </div>
+
+    <div class="font-forbidden">
+      <strong>🚫 Tipografías no permitidas en comunicaciones de marca</strong>
+      <span>Times New Roman, Georgia, Helvetica genérica, Comic Sans, fuentes display decorativas, scripts/caligráficas. En entornos donde Graphik no esté disponible, usar <strong>Arial</strong> como fuente de sistema.</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════ ESPACIADO ═══════════════════════════════════ -->
+  <section>
+    <div class="section-label">05 — Espaciado</div>
+    <h2 class="section-title">Grid & Espaciado</h2>
+    <p class="section-desc">Sistema de espaciado basado en múltiplos de 8px. El espacio generoso es una señal de marca: Accenture no "llena" — respira y da autoridad al contenido.</p>
+
+    <div class="spacing-scale">
+      <div class="space-row">
+        <div class="space-box" style="width:4px;"></div>
+        <div class="space-label">4px — xs</div>
+        <div class="space-desc">Espacio entre ícono y texto, separadores mínimos</div>
+      </div>
+      <div class="space-row">
+        <div class="space-box" style="width:8px;"></div>
+        <div class="space-label">8px — sm</div>
+        <div class="space-desc">Padding interno de chips, badges, etiquetas</div>
+      </div>
+      <div class="space-row">
+        <div class="space-box" style="width:16px;"></div>
+        <div class="space-label">16px — md</div>
+        <div class="space-desc">Padding de botones, gap entre elementos inline</div>
+      </div>
+      <div class="space-row">
+        <div class="space-box" style="width:24px;"></div>
+        <div class="space-label">24px — lg</div>
+        <div class="space-desc">Espaciado entre componentes, padding de cards</div>
+      </div>
+      <div class="space-row">
+        <div class="space-box" style="width:40px;"></div>
+        <div class="space-label">40px — xl</div>
+        <div class="space-desc">Separación entre secciones menores</div>
+      </div>
+      <div class="space-row">
+        <div class="space-box" style="width:64px;"></div>
+        <div class="space-label">64px — 2xl</div>
+        <div class="space-desc">Separación entre secciones mayores, padding de página</div>
+      </div>
+      <div class="space-row">
+        <div class="space-box" style="width:96px;"></div>
+        <div class="space-label">96px — 3xl</div>
+        <div class="space-desc">Secciones hero, separadores de capítulo</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════ BOTONES ═══════════════════════════════════ -->
+  <section>
+    <div class="section-label">06 — Componentes</div>
+    <h2 class="section-title">Botones & CTAs</h2>
+    <p class="section-desc">Los botones de Accenture son de esquinas rectas (border-radius: 0). No hay píldoras ni formas redondeadas. Directos, corporativos, eficientes.</p>
+
+    <div class="btn-grid">
+      <a class="btn btn-primary">Explorar soluciones</a>
+      <a class="btn btn-outline">Más información</a>
+      <a class="btn btn-dark">Contactar</a>
+      <a class="btn btn-ghost">Ver demo</a>
+    </div>
+    <div class="btn-grid">
+      <a class="btn btn-primary btn-sm">Pequeño</a>
+      <a class="btn btn-primary">Mediano</a>
+      <a class="btn btn-primary btn-lg">Grande</a>
+    </div>
+
+    <div class="doDont">
+      <div class="do-box">
+        <h5>Principios de CTA</h5>
+        <ul>
+          <li>Texto en acción: verbo + objeto ("Ver resultados")</li>
+          <li>Un CTA primario por sección como máximo</li>
+          <li>Contraste mínimo 4.5:1 (WCAG AA)</li>
+          <li>Padding generoso: nunca inferior a 12px 24px</li>
+        </ul>
+      </div>
+      <div class="dont-box">
+        <h5>Errores frecuentes</h5>
+        <ul>
+          <li>Botones con border-radius redondeado ("píldoras")</li>
+          <li>Texto vago: "Click aquí", "Enviar", "OK"</li>
+          <li>Más de 2 CTAs con igual jerarquía visual</li>
+          <li>Degradados en botones primarios</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════ IMÁGENES ═══════════════════════════════════ -->
+  <section>
+    <div class="section-label">07 — Fotografía e Imagen</div>
+    <h2 class="section-title">Principios de Imagen</h2>
+    <p class="section-desc">La fotografía de Accenture muestra personas reales en contextos de trabajo. Auténtica, diversa, moderna. Sin stock genérico, sin poses forzadas.</p>
+
+    <div class="img-grid">
+      <div class="img-card">
+        <div class="img-icon">👥</div>
+        <div class="img-title">Personas reales</div>
+        <div class="img-body">Colaboradores y clientes en entornos de trabajo genuinos. Diversidad de género, etnia y edad reflejada de forma natural, no tokenizada.</div>
+      </div>
+      <div class="img-card">
+        <div class="img-icon">💡</div>
+        <div class="img-title">Iluminación directa</div>
+        <div class="img-body">Paleta fotográfica limpia, alta clave, contraste moderado. Evitar filtros cálidos genéricos o tonos desaturados tipo "Instagram vintage".</div>
+      </div>
+      <div class="img-card">
+        <div class="img-icon">🏢</div>
+        <div class="img-title">Espacios de trabajo</div>
+        <div class="img-body">Oficinas modernas, tecnología visible, entornos colaborativos. Los espacios deben reflejar innovación sin ser distópicos ni fríos.</div>
+      </div>
+      <div class="img-card">
+        <div class="img-icon">🔮</div>
+        <div class="img-title">Tecnología abstracta</div>
+        <div class="img-body">Para piezas de technology branding: visualizaciones de datos, redes, IA. Color predominante violeta. Sin clichés de "código verde en pantalla".</div>
+      </div>
+      <div class="img-card">
+        <div class="img-icon">🚫</div>
+        <div class="img-title">Imágenes prohibidas</div>
+        <div class="img-body">Stock genérico de personas sonriendo en salas de reuniones. Clichés de "startup": mesas de ping-pong, pizarras caóticas, hoodie + laptop.</div>
+      </div>
+      <div class="img-card">
+        <div class="img-icon">🎨</div>
+        <div class="img-title">Overlay de color</div>
+        <div class="img-body">Si se aplica un overlay de color sobre fotografía, solo en negro o violeta corporativo con opacidad entre 40-60%. Nunca multicolor.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════ VOZ ═══════════════════════════════════ -->
+  <section>
+    <div class="section-label">08 — Tono de Comunicación</div>
+    <h2 class="section-title">Voz de Marca</h2>
+    <p class="section-desc">Accenture habla como un socio estratégico: con autoridad, claridad y sin tecnicismos innecesarios. Directa pero nunca agresiva. Humana pero nunca informal.</p>
+
+    <div class="rules-grid">
+      <div class="rule-card">
+        <h4>💬 Directa y clara</h4>
+        <ul>
+          <li>Oraciones cortas con sujeto + verbo + objeto</li>
+          <li>Verbos de acción: impulsar, transformar, crear, liderar</li>
+          <li>Sin jerga corporativa vacía ("sinergia", "paradigma")</li>
+          <li>Máximo una idea por párrafo</li>
+        </ul>
+      </div>
+      <div class="rule-card">
+        <h4>🤝 Humana y cercana</h4>
+        <ul>
+          <li>Dirigirse al lector en segunda persona cuando aplica</li>
+          <li>Reconocer los retos reales del negocio</li>
+          <li>Mostrar impacto humano, no solo métricas</li>
+          <li>Evitar el tono "vendedor" o la hipérbole</li>
+        </ul>
+      </div>
+      <div class="rule-card">
+        <h4>📊 Basada en evidencia</h4>
+        <ul>
+          <li>Respaldar afirmaciones con datos y fuentes</li>
+          <li>Citar investigaciones propias cuando sea posible</li>
+          <li>Específico es mejor que general ("370.000 profesionales")</li>
+          <li>Evitar superlativos sin respaldo ("el mejor", "el único")</li>
+        </ul>
+      </div>
+      <div class="rule-card">
+        <h4>🚀 Orientada al futuro</h4>
+        <ul>
+          <li>Hablar de posibilidades, no de limitaciones</li>
+          <li>Foco en resultados y transformación</li>
+          <li>Tono optimista sin ser naíf</li>
+          <li>Evitar el lenguaje de miedo o urgencia artificial</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════════════════ FOOTER ═══════════════════════════════════ -->
+<footer>
+  <span>Accenture</span> Brand Style Guide — Confidential &amp; Proprietary
+</footer>
+
+</body>
+</html>
