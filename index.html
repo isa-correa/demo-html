@@ -5755,50 +5755,60 @@ function ptLoop(){
 }
 
 /* ══════════════════════════════════════════════════
-   CONTROL REMOTO QR (BroadcastChannel local)
+   CONTROL REMOTO QR — PeerJS (cross-device)
 ══════════════════════════════════════════════════ */
-let qrChannel = null, qrInited = false, qrSessionId = null;
+let qrPeer = null, qrInited = false, qrSessionId = null;
 
 function initQR(){
   if(qrInited) return;
   qrInited = true;
-  qrSessionId = 'wow-' + Math.random().toString(36).slice(2, 8);
 
-  // BroadcastChannel works same-origin (same browser, same domain)
-  // For cross-device we use a simple URL with the tab index encoded via hash
-  // We generate a URL the mobile can open: same file + #remote=SESSION
-  // Since the file is likely served, this will work on GitHub Pages
-  // If opened locally (file://) we show instructions instead
+  const statusEl = document.getElementById('wow-qr-status');
+  if(statusEl) statusEl.textContent = 'Iniciando…';
 
-  const isServed = location.protocol !== 'file:';
-  const remoteURL = isServed
-    ? `${location.origin}${location.pathname}#remote=${qrSessionId}`
-    : null;
-
-  if(isServed){
-    drawQRCode(remoteURL);
-    startQRHost(qrSessionId);
-  } else {
-    // file:// — use BroadcastChannel between two tabs
-    const localURL = `${location.href.split('#')[0]}#remote=${qrSessionId}`;
-    drawQRCode(localURL);
-    startQRHost(qrSessionId);
-    document.getElementById('wow-qr-status').textContent = 'Abre el QR en otra pestaña del mismo navegador';
-  }
+  // Load PeerJS from CDN
+  const script = document.createElement('script');
+  script.src = 'https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js';
+  script.onload = () => startQRHost();
+  script.onerror = () => {
+    if(statusEl) statusEl.textContent = 'Error cargando PeerJS';
+  };
+  document.head.appendChild(script);
 }
 
-function startQRHost(sessionId){
+function startQRHost(){
+  const statusEl = document.getElementById('wow-qr-status');
   try {
-    qrChannel = new BroadcastChannel('wow-remote-' + sessionId);
-    qrChannel.onmessage = (e) => {
-      if(e.data && e.data.type === 'navigate'){
-        const cardIdx = e.data.tab;
-        navTo(cardIdx);
-        const status = document.getElementById('wow-qr-status');
-        if(status){ status.textContent = '● Conectado'; status.className = 'wow-qr-status connected'; }
-      }
-    };
-  } catch(e){}
+    qrPeer = new Peer(); // uses free PeerJS cloud server
+
+    qrPeer.on('open', (id) => {
+      qrSessionId = id;
+      const remoteURL = `${location.origin}${location.pathname}#remote=${id}`;
+      drawQRCode(remoteURL);
+      if(statusEl){ statusEl.textContent = 'Esperando conexión…'; statusEl.className = 'wow-qr-status'; }
+    });
+
+    qrPeer.on('connection', (conn) => {
+      if(statusEl){ statusEl.textContent = '● Conectado'; statusEl.className = 'wow-qr-status connected'; }
+      conn.on('data', (data) => {
+        if(data && data.type === 'navigate'){
+          navTo(data.tab);
+          // Sync tab pills
+          document.querySelectorAll('.wow-qr-tab-pill').forEach(p => p.classList.toggle('active', +p.dataset.tab === data.tab));
+        }
+      });
+      conn.on('close', () => {
+        if(statusEl){ statusEl.textContent = 'Desconectado'; statusEl.className = 'wow-qr-status'; }
+      });
+    });
+
+    qrPeer.on('error', (err) => {
+      if(statusEl) statusEl.textContent = 'Error: ' + err.type;
+    });
+
+  } catch(e){
+    if(statusEl) statusEl.textContent = 'PeerJS no disponible';
+  }
 }
 
 // Remote controller page — activates if URL has #remote=SESSION
@@ -5886,20 +5896,42 @@ function checkIfRemote(){
 
   const navScript = 'var _sid="' + sessionId + '";'
     + 'var _labels=' + JSON.stringify(labels) + ';'
+    + 'var _peer=null,_conn=null,_connecting=false;'
+    + 'function getConn(cb){'
+    + '  if(_conn&&_conn.open){cb(_conn);return;}'
+    + '  if(_connecting){setTimeout(function(){getConn(cb);},200);return;}'
+    + '  _connecting=true;'
+    + '  var s=document.getElementById("r-st"),tx=document.getElementById("r-tx");'
+    + '  s.className="r-status";tx.textContent="Conectando…";'
+    + '  var script=document.createElement("script");'
+    + '  script.src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js";'
+    + '  script.onload=function(){'
+    + '    _peer=new Peer();'
+    + '    _peer.on("open",function(){'
+    + '      _conn=_peer.connect(_sid);'
+    + '      _conn.on("open",function(){_connecting=false;tx.textContent="Conectado";cb(_conn);});'
+    + '      _conn.on("error",function(){_connecting=false;tx.textContent="Error de conexión";});'
+    + '      _conn.on("close",function(){_conn=null;tx.textContent="Desconectado";});'
+    + '    });'
+    + '    _peer.on("error",function(e){_connecting=false;tx.textContent="Error: "+e.type;});'
+    + '  };'
+    + '  document.head.appendChild(script);'
+    + '}'
     + 'function sendNav(idx){'
-    + 'var btn=document.querySelector(".r-btn[data-card=\\""+idx+"\\"]");'
-    + 'if(btn){btn.classList.add("pressed");setTimeout(function(){btn.classList.remove("pressed");},300);}'
-    + 'document.querySelectorAll(".r-btn").forEach(function(b){b.classList.remove("active-card");});'
-    + 'if(btn)btn.classList.add("active-card");'
-    + 'try{'
-    + 'var ch=new BroadcastChannel("wow-remote-"+_sid);'
-    + 'ch.postMessage({type:"navigate",tab:idx});ch.close();'
-    + '}catch(e){}'
-    + 'var s=document.getElementById("r-st");'
-    + 'var tx=document.getElementById("r-tx");'
-    + 's.className="r-status sent";'
-    + 'tx.textContent="\\u2713 "+(_labels[idx]||"Card "+(idx+1));'
-    + 'setTimeout(function(){s.className="r-status";tx.textContent="Listo para controlar";},1800);}';
+    + '  var btn=document.querySelector(".r-btn[data-card=\\""+idx+"\\"]");'
+    + '  if(btn){btn.classList.add("pressed");setTimeout(function(){btn.classList.remove("pressed");},300);}'
+    + '  document.querySelectorAll(".r-btn").forEach(function(b){b.classList.remove("active-card");});'
+    + '  if(btn)btn.classList.add("active-card");'
+    + '  var s=document.getElementById("r-st"),tx=document.getElementById("r-tx");'
+    + '  getConn(function(conn){'
+    + '    try{conn.send({type:"navigate",tab:idx});}catch(e){}'
+    + '    s.className="r-status sent";'
+    + '    tx.textContent="\\u2713 "+(_labels[idx]||"Card "+(idx+1));'
+    + '    setTimeout(function(){s.className="r-status";tx.textContent="Listo para controlar";},1800);'
+    + '  });'
+    + '}'
+    + '// Auto-connect on load'
+    + 'window.addEventListener("load",function(){getConn(function(){});});';
 
   document.open();
   document.write('<!DOCTYPE html><html lang="es"><head>'
