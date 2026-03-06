@@ -5804,16 +5804,26 @@ function startQRHost(){
         if(!data) return;
         if(data.type === 'navigate'){
           navTo(data.section);
-          // If tab also sent, click the corresponding wow-tab after navigation
           if(data.tab !== undefined){
-            setTimeout(() => {
-              const tabs = document.querySelectorAll('.wow-tab-btn');
-              if(tabs[data.tab]) tabs[data.tab].click();
-            }, 400);
+            const tabSelectors = [
+              null,                // 0 Equipo — no tabs
+              '.cmp-tab',          // 1 PPT vs HTML
+              '.dv-tab',           // 2 Datos vivos
+              '.cap-tab',          // 3 Capacidades
+              '.prod-tab',         // 4 Producción
+              '.wow-tab',          // 5 Wow
+            ];
+            const sel = tabSelectors[data.section];
+            if(sel){
+              setTimeout(() => {
+                const tabs = document.querySelectorAll(sel);
+                if(tabs[data.tab]) tabs[data.tab].click();
+              }, 450);
+            }
           }
         } else if(data.type === 'lang'){
           const btns = document.querySelectorAll('.lang-btn');
-          btns.forEach(b => { if(b.textContent.toLowerCase() === data.lang) b.click(); });
+          btns.forEach(b => { if(b.textContent.trim().toLowerCase() === data.lang) b.click(); });
         }
       });
       conn.on('close', () => {
