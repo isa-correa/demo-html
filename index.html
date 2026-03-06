@@ -1513,8 +1513,8 @@ a { text-decoration:none; color:inherit; }
 
 /* ── QR tab ── */
 .wow-qr-wrap { display:flex; flex-direction:column; gap:20px; flex:1; min-height:0; }
-.wow-qr-layout { display:grid; grid-template-columns:220px 1fr; gap:30px; align-items:start; flex:1; }
-.wow-qr-left { display:flex; flex-direction:column; align-items:center; gap:12px; }
+
+
 .wow-qr-box {
   width:196px; height:196px;
   background:var(--wht); padding:8px;
@@ -1522,15 +1522,12 @@ a { text-decoration:none; color:inherit; }
 }
 .wow-qr-status { font-size:11px; color:var(--txt3); letter-spacing:.5px; text-align:center; }
 .wow-qr-status.connected { color:var(--grn); }
-.wow-qr-right { display:flex; flex-direction:column; gap:16px; }
-.wow-qr-label { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--txt3); }
-.wow-qr-tabs-preview { display:flex; flex-direction:column; gap:8px; }
-.wow-qr-tab-pill {
-  padding:10px 16px; font-size:13px; color:var(--txt2);
-  border:1px solid var(--bdr); transition:all .3s;
-}
-.wow-qr-tab-pill.active { border-color:var(--p); color:var(--p); background:rgba(161,0,255,.08); }
-.wow-qr-hint { font-size:11px; color:var(--txt3); line-height:1.6; }
+
+
+
+
+
+
 
 </style>
 </head>
@@ -2743,25 +2740,12 @@ a { text-decoration:none; color:inherit; }
 
           <!-- TAB 2: CONTROL REMOTO QR -->
           <div class="wow-panel" id="wpp2">
-            <div class="wow-qr-wrap">
-              <p class="wow-intro" id="wow-qr-intro">Escanea el QR con el móvil. Controla las pestañas de esta card desde tu teléfono.</p>
-              <div class="wow-qr-layout">
-                <div class="wow-qr-left">
-                  <div class="wow-qr-box" id="wow-qr-box">
-                    <canvas id="wow-qr-canvas" width="180" height="180"></canvas>
-                  </div>
-                  <div class="wow-qr-status" id="wow-qr-status">Esperando conexión…</div>
-                </div>
-                <div class="wow-qr-right">
-                  <div class="wow-qr-label" id="wow-qr-label">Pestaña activa</div>
-                  <div class="wow-qr-tabs-preview" id="wow-qr-tabs-preview">
-                    <div class="wow-qr-tab-pill active" data-tab="0">✦ IA</div>
-                    <div class="wow-qr-tab-pill" data-tab="0">◉ Sonido</div>
-                    <div class="wow-qr-tab-pill" data-tab="1">⬡ Partículas</div>
-                  </div>
-                  <div class="wow-qr-hint" id="wow-qr-hint">El móvil navega entre las pestañas en tiempo real.</div>
-                </div>
+            <div class="wow-qr-wrap" style="align-items:center;justify-content:center;">
+              <p class="wow-intro" id="wow-qr-intro">Escanea el QR con el móvil para controlar la presentación.</p>
+              <div class="wow-qr-box" id="wow-qr-box">
+                <canvas id="wow-qr-canvas" width="200" height="200"></canvas>
               </div>
+              <div class="wow-qr-status" id="wow-qr-status">Iniciando…</div>
             </div>
           </div>
 
@@ -5464,8 +5448,6 @@ function applyCard6(L){
   set('wow-meter-lbl', c.meterLbl);
   set('wow-particles-intro', c.ptIntro);
   set('wow-qr-intro', c.qrIntro);
-  set('wow-qr-label', c.qrLabel);
-  set('wow-qr-hint', c.qrHint);
   if(!micActive){
     set('wow-mic-lbl', c.micOn);
     set('wow-canvas-label', c.micIdle);
@@ -5808,11 +5790,7 @@ function initQR(){
 function startQRHost(){
   const statusEl = document.getElementById('wow-qr-status');
   try {
-    qrPeer = new Peer(undefined, {
-      debug: 0,
-      host: '0.peerjs.com', port: 443, path: '/', secure: true,
-      config: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] }
-    });
+    qrPeer = new Peer();
     qrPeer.on('open', (id) => {
       const remoteURL = location.origin + location.pathname + '#remote=' + id;
       drawQRCode(remoteURL);
@@ -5942,7 +5920,7 @@ var _conn=null,_curSection=0;
 function log(msg,cls){var s=document.getElementById('r-st'),tx=document.getElementById('r-tx');if(!tx)return;tx.textContent=msg;s.className=cls||'r-status';}
 function initPeer(){
   log('Conectando…');
-  var p=new Peer({debug:0,host:'0.peerjs.com',port:443,path:'/',secure:true,config:{iceServers:[{urls:'stun:stun.l.google.com:19302'}]}});
+  var p=new Peer();
   p.on('open',function(){
     log('Enlazando…');
     _conn=p.connect(_sid,{reliable:true,serialization:'json'});
