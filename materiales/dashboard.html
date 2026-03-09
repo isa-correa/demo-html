@@ -6184,13 +6184,26 @@ function sendBrandingDemo(){
 initPeer();
 `;
 
-  const html_out = `<!DOCTYPE html><html lang="es"><head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>Accenture · Mando</title>
-<style>${css}</style>
-<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"><\/script>
-</head><body>
+
+
+  // Inject CSS
+  const styleEl = document.createElement('style');
+  styleEl.textContent = css;
+  document.head.innerHTML = '';
+  document.head.appendChild(styleEl);
+  const metaCharset = document.createElement('meta');
+  metaCharset.setAttribute('charset','UTF-8');
+  const metaVP = document.createElement('meta');
+  metaVP.name = 'viewport';
+  metaVP.content = 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no';
+  const titleEl = document.createElement('title');
+  titleEl.textContent = 'Accenture · Mando';
+  document.head.insertBefore(metaCharset, styleEl);
+  document.head.insertBefore(metaVP, styleEl);
+  document.head.insertBefore(titleEl, styleEl);
+
+  // Build body
+  document.body.innerHTML = `
 <canvas id="bg-canvas"></canvas>
 <div id="app">
   <div class="r-logo-wrap">
@@ -6207,13 +6220,22 @@ initPeer();
     </div>
     <div class="r-status" id="r-st"><span class="r-dot"></span><span id="r-tx">Cargando…</span></div>
   </div>
-</div>
-<script>${bgScript}${navScript}<\/script>
-</body></html>`;
+</div>`;
 
-  document.open();
-  document.write(html_out);
-  document.close();
+  // Load PeerJS then run scripts
+  const peerScript = document.createElement('script');
+  peerScript.src = 'https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js';
+  peerScript.onload = function(){
+    const s = document.createElement('script');
+    s.textContent = bgScript + navScript;
+    document.body.appendChild(s);
+  };
+  peerScript.onerror = function(){
+    const s = document.createElement('script');
+    s.textContent = bgScript + navScript;
+    document.body.appendChild(s);
+  };
+  document.body.appendChild(peerScript);
 }
 
 /* ── QR Code generator (pure JS, no library needed) ── */
